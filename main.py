@@ -43,19 +43,19 @@ archer_sfx.set_volume(.2)
 crossbowman_sfx = pg.mixer.Sound(TURRET_DATA["crossbowman"][0]["projectile_sfx"])
 crossbowman_sfx.set_volume(.2)
 melee_sfx = pg.mixer.Sound(TURRET_DATA["melee"][0]["projectile_sfx"])
-melee_sfx.set_volume(.2)
+melee_sfx.set_volume(.175)
 siege_sfx = pg.mixer.Sound(TURRET_DATA["siege"][0]["projectile_sfx"])
 siege_sfx.set_volume(.2)
 sniper_sfx = pg.mixer.Sound(TURRET_DATA["sniper"][0]["projectile_sfx"])
-sniper_sfx.set_volume(.2)
+sniper_sfx.set_volume(.15)
 fire_sfx = pg.mixer.Sound(TURRET_DATA["fire"][0]["projectile_sfx"])
-fire_sfx.set_volume(.2)
+fire_sfx.set_volume(.15)
 frost_sfx = pg.mixer.Sound(TURRET_DATA["frost"][0]["projectile_sfx"])
 frost_sfx.set_volume(.2)
 poison_sfx = pg.mixer.Sound(TURRET_DATA["poison"][0]["projectile_sfx"])
 poison_sfx.set_volume(.2)
 electric_sfx = pg.mixer.Sound(TURRET_DATA["electric"][0]["projectile_sfx"])
-electric_sfx.set_volume(.2)
+electric_sfx.set_volume(.25)
 
 
 sfx_data = {
@@ -180,7 +180,7 @@ def update_info_panel(item):
             targets = '1'
         projectile_speed = str(data["projectile_speed"])
         if data["upgrade_cost"] == 0:
-            upgrade_cost = 'N/A'
+            upgrade_cost = 'MAX LEVEL'
         else:
             upgrade_cost = str(data["upgrade_cost"])
         # screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
@@ -522,7 +522,6 @@ while run:
             data = sfx_data[unit_type]
             if data[1] is True:
                 data[0].play()
-                print("TRUE")
                 data[1] = False
                 data[3] = time.time()
                 data[4] = True

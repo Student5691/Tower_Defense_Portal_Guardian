@@ -341,15 +341,15 @@ def calculate_value(ENEMY_DATA, enemy_counts): # values can be hard coded or thi
     for enemy_category, list_of_enemies in ENEMY_DATA.items():
         count=0
         for enemy in list_of_enemies:
-            print(enemy_category, count%4, "\t\t", enemy["value"], end='\t')
+            # print(enemy_category, count%4, "\t\t", enemy["value"], end='\t')
             enemy["value"] = int(1 + (enemy["hp"]/10 * enemy["speed"]/2 * (1 + enemy["armor"]) + enemy["hp"] * (1 + len(enemy["dmg_resist"])-len(enemy["dmg_vulnerability"])/2)/40)/5)
             values.append(enemy["value"])
             try:
-                print(enemy["value"], "\t", enemy["value"]*enemy_counts[count0])
+                # print(enemy["value"], "\t", enemy["value"]*enemy_counts[count0])
                 total += enemy["value"]*enemy_counts[count0]
             except:
-                print(enemy["value"])
-                # pass
+                # print(enemy["value"])
+                pass
             count += 1
             count0 += 1
     return total

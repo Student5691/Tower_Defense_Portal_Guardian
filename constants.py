@@ -67,4 +67,4 @@ def DIFFICULTY_ARMOR_MULT(level):
     return (1 + (level/TOTAL_LEVELS)*3)
 
 def DIFFICULTY_VALUE_MULT(level):
-    return (1 + (level/TOTAL_LEVELS))
+    return (1 + (level/TOTAL_LEVELS)*2)

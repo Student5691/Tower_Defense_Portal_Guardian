@@ -97,7 +97,7 @@ class Turret(pg.sprite.Sprite):
             self.last_shot = pg.time.get_ticks()
             if projectile and not self.sfx_data[self.type][4]:
                 self.sfx_data[self.type][1] = True
-                print(self.sfx_data[self.type][1])
+                # print(self.sfx_data[self.type][1])
             # if projectile and _world.sfx_data[self.type][1]:# and pg.time.get_ticks() - self.sfx_last_played > self.sfx_cooldown / _world.game_speed:
             #     self.sfx.play()
             #     self.sfx_last_played = pg.time.get_ticks()
