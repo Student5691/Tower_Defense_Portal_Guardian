@@ -14,7 +14,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\archer0.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         },
         {
         "range": 200,
@@ -27,7 +27,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\archer1.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         },
         {
         "range": 250,
@@ -40,7 +40,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\archer2.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         },
         {
         "range": 300,
@@ -53,7 +53,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\archer3.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         },
         {
         "range": 350,
@@ -66,7 +66,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\archer4.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         }
     ],
     "crossbowman" : [
@@ -82,7 +82,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\cbm0.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         },
         {
         "range": 275,
@@ -95,7 +95,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\cbm1.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         },
         {
         "range": 300,
@@ -108,7 +108,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\cbm2.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         },
         {
         "range": 325,
@@ -121,7 +121,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\cbm3.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         },
         {
         "range": 325,
@@ -134,7 +134,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\cbm4.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         }
     ],
     "melee" : [
@@ -150,7 +150,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\melee0.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
         "projectile_speed": 25,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         },
         {
         "range": 175,
@@ -163,7 +163,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\melee1.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
         "projectile_speed": 25,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         },
         {
         "range": 175,
@@ -176,7 +176,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\melee2.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
         "projectile_speed": 25,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         },
         {
         "range": 175,
@@ -189,7 +189,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\melee3.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
         "projectile_speed": 25,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         },
         {
         "range": 200,
@@ -202,7 +202,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\melee4.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
         "projectile_speed": 25,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         }
     ],
     "siege": [
@@ -218,7 +218,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\siege0.png',
         "projectile_image": 'assets\\projectiles\\siege_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         },
         {
         "range": 275,
@@ -231,7 +231,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\siege1.png',
         "projectile_image": 'assets\\projectiles\\siege_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         },
         {
         "range": 350,
@@ -244,7 +244,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\siege2.png',
         "projectile_image": 'assets\\projectiles\\siege_proj2.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         },
         {
         "range": 350,
@@ -257,7 +257,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\siege3.png',
         "projectile_image": 'assets\\projectiles\\siege_proj2.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         },
         {
         "range": 350,
@@ -270,7 +270,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\siege4.png',
         "projectile_image": 'assets\\projectiles\\siege_proj4.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         }
     ],
     "sniper" : [
@@ -286,7 +286,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\sniper0.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
         "projectile_speed": 11,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         },
         {
         "range": 420,
@@ -299,7 +299,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\sniper1.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
         "projectile_speed": 12,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         },
         {
         "range": 530,
@@ -312,7 +312,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\sniper2.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
         "projectile_speed": 13,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         },
         {
         "range": 640,
@@ -325,7 +325,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\sniper3.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
         "projectile_speed": 14,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         },
         {
         "range": 750,
@@ -338,7 +338,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\sniper4.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
         "projectile_speed": 15,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         }
     ],
     "fire" : [
@@ -354,7 +354,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\fire0.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
         {
         "range": 200,
@@ -367,7 +367,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\fire1.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
         {
         "range": 225,
@@ -380,7 +380,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\fire2.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
         {
         "range": 250,
@@ -393,7 +393,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\fire3.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
         {
         "range": 275,
@@ -406,7 +406,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\fire4.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
     ],
     "frost" : [
@@ -422,7 +422,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\frost0.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
         "projectile_speed": 5,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
         {
         "range": 175,
@@ -435,7 +435,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\frost1.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
         "projectile_speed": 6,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
         {
         "range": 200,
@@ -448,7 +448,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\frost2.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
         "projectile_speed": 7,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
         {
         "range": 225,
@@ -461,7 +461,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\frost3.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
         "projectile_speed": 7,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
         {
         "range": 275,
@@ -474,7 +474,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\frost4.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
     ],
     "poison" : [
@@ -490,7 +490,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\poison0.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
         "projectile_speed": 10,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
         {
         "range": 200,
@@ -503,7 +503,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\poison1.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
         "projectile_speed": 10,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
         {
         "range": 250,
@@ -516,7 +516,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\poison2.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
         "projectile_speed": 10,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
         {
         "range": 275,
@@ -529,7 +529,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\poison3.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
         "projectile_speed": 10,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
         {
         "range": 300,
@@ -542,7 +542,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\poison4.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
         "projectile_speed": 10,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
     ],
     "electric" : [
@@ -558,7 +558,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\electric0.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
         {
         "range": 200,
@@ -571,7 +571,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\electric1.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
         {
         "range": 250,
@@ -584,7 +584,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\electric2.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
         {
         "range": 300,
@@ -597,7 +597,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\electric3.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
         "projectile_speed": 8,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
         {
         "range": 325,
@@ -610,7 +610,7 @@ TURRET_DATA = {
         "image": 'assets\\towers\\electric4.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
         "projectile_speed": 10,
-        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.wav'
+        "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
     ]
 }

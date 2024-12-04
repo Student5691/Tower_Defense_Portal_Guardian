@@ -35,7 +35,45 @@ class World():
         self.missed_enemies = 0
         self.score = 0
 
+        self.sfx_data = {
+            #[number of proj sfx activations, allowed to play sfx?, tick delay before allowing more sfx, num of ticks when sfx play authorization revoked]
+            "archer": [0, True, 10000, 0],
+            "crossbowman": [0, True, 1000, 0],
+            "melee": [0, True, 1000, 0],
+            "siege": [0, True, 1000, 0],
+            "sniper": [0, True, 1000, 0],
+            "fire": [0, True, 1000, 0],
+            "frost": [0, True, 1000, 0],
+            "poison": [0, True, 1000, 0],
+            "electric": [0, True, 1000, 0]
+        }
+        # self.sfx_status = {
+        #     "archer": True,
+        #     "crossbowman": True,
+        #     "melee": True,
+        #     "siege": True,
+        #     "sniper": True,
+        #     "fire": True,
+        #     "frost": True,
+        #     "poison": True,
+        #     "electric": True
+        # }
+
         self.undo_deck = deque(maxlen=c.UNDO_MAX)
+
+    def sfx_manager(self):
+        for unit_type in self.sfx_data:
+            data = self.sfx_data[unit_type]
+            if data[0] > 2:
+                if data[1] is True:
+                    data[3] = pg.time.get_ticks()
+                data[1] = False
+            # print(pg.time.get_ticks() - data[3], " > ", data[2])
+            if pg.time.get_ticks() - data[3] > data[2]:
+                data[0] = 0
+                data[1] = True
+                print("TRUE")
+        print(self.sfx_data["archer"], pg.time.get_ticks() - data[2])
 
     def process_data(self):
         x_offset = self.level_data["layers"][1]["objects"][0]["x"]
@@ -47,16 +85,6 @@ class World():
             self.way_points.append((x, y))
         self.tile_map = self.level_data["layers"][0]["data"]
 
-    # def process_enemies(self):
-    #     self.enemy_list = []
-    #     enemies = ENEMY_SPAWN_DATA[self.level_group][self.level_group_wave]
-    #     for enemy_type in enemies:
-    #         for specific_enemy in range(len(enemies[enemy_type])):
-    #             enemies_to_spawn = enemies[enemy_type][specific_enemy]
-    #             for enemy in range(enemies_to_spawn):
-    #                 self.enemy_list.append((enemy_type, specific_enemy))
-    #     random.shuffle(self.enemy_list)
-
     def process_enemies(self):
         self.enemy_list = []
         self.enemy_category = c.ENEMY_CATEGORIES[self.level_group]
@@ -65,13 +93,6 @@ class World():
             for specific_enemy in range(enemies[i]):
                 self.enemy_list.append((self.enemy_category, i))
         random.shuffle(self.enemy_list)
-
-
-        # for enemy_type in enemies:
-        #     for specific_enemy in range(len(enemies[enemy_type])):
-        #         enemies_to_spawn = enemies[enemy_type][specific_enemy]
-        #         for enemy in range(enemies_to_spawn):
-        #             self.enemy_list.append((enemy_type, specific_enemy))
 
     def check_level_complete(self):
         if self.killed_enemies + self.missed_enemies == len(self.enemy_list):
@@ -95,27 +116,6 @@ class World():
         node.left = self.generate_tree(current_level + 1, max_level, used_values + [value])
         node.right = self.generate_tree(current_level + 1, max_level, used_values + [value])
         return node
-
-    # def generate_tree(self, current_level, max_level, used_values):
-    #     if current_level == max_level:
-    #         return None
-    #     remaining_values = [i for i in range(max_level) if i not in used_values]
-    #     value = remaining_values.pop(random.randint(0, len(remaining_values)-1))
-    #     node = Node(value)
-
-    #     if remaining_values:  # Ensure there are values left to assign
-    #         left_value = remaining_values.pop(random.randint(0, len(remaining_values) - 1))
-    #         node.left = self.generate_tree(current_level + 1, max_level, used_values + [value, left_value])
-    #     else:
-    #         node.left = None
-
-    #     if remaining_values:  # Ensure there are values left to assign
-    #         right_value = remaining_values.pop(random.randint(0, len(remaining_values) - 1))
-    #         node.right = self.generate_tree(current_level + 1, max_level, used_values + [value, right_value])
-    #     else:
-    #         node.right = None
-        
-    #     return node
 
     def traverse_tree(self, choice):
         if self.tree_level < c.TOTAL_GROUPS-1:

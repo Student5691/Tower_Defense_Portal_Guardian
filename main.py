@@ -446,6 +446,7 @@ while run:
 
     #draw level
     world.draw(screen)
+    # world.sfx_manager()
 
     #draw groups
     enemy_group.draw(screen)
@@ -461,6 +462,7 @@ while run:
 
     if game_over == False:
         if level_started == False:
+            world.game_speed = 1
             if choice is None and world.tree_level > 0 and enemy_categories[world.leftNode.value] != enemy_categories[world.rightNode.value]:
                 curText0 = enemy_categories[world.leftNode.value]
                 curText1 = enemy_categories[world.rightNode.value]

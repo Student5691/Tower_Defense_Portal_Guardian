@@ -9,6 +9,8 @@ from projectile import Projectile
 class Turret(pg.sprite.Sprite):
     def __init__(self, _type, _tile_x, _tile_y, _projectile_group, _turret_group):
         pg.sprite.Sprite.__init__(self)
+        self.type = _type
+        print(self.type)
         self.type_data = TURRET_DATA[_type]
         self.name = _type.title()
         self.upgrade_level = 0
@@ -42,7 +44,10 @@ class Turret(pg.sprite.Sprite):
         self.cost = self.type_data[self.upgrade_level]["cost"]
         self.total_cost = self.cost
         self.projectile_speed = self.type_data[self.upgrade_level]["projectile_speed"]
-        self.sfx = self.type_data[self.upgrade_level]["projectile_sfx"]
+        self.sfx = pg.mixer.Sound(self.type_data[self.upgrade_level]["projectile_sfx"])
+        self.sfx_cooldown = 1000
+        self.sfx_last_played = pg.time.get_ticks() - self.sfx_cooldown
+        self.sfx.set_volume(.25)
         self.update_time = pg.time.get_ticks()
         self.last_shot = pg.time.get_ticks()-self.cooldown
         self.target = None
@@ -55,10 +60,10 @@ class Turret(pg.sprite.Sprite):
         self.range_rect = self.range_image.get_rect()
         self.range_rect.center = self.rect.center
 
-    def update(self, enemy_group, world):
+    def update(self, enemy_group, _world):
         # if not self.target:
-        if pg.time.get_ticks() - self.last_shot > self.cooldown / world.game_speed:
-            self.targeting(enemy_group)
+        if pg.time.get_ticks() - self.last_shot > self.cooldown / _world.game_speed:
+            self.targeting(enemy_group, _world)
             # self.last_shot = pg.time.get_ticks()
 
     def draw(self, surface):
@@ -69,7 +74,7 @@ class Turret(pg.sprite.Sprite):
             surface.blit(self.range_image, self.range_rect)
         surface.blit(self.image, self.rect)
 
-    def targeting(self, enemy_group):
+    def targeting(self, enemy_group, _world):
         x_dist = 0
         y_dist = 0
         targets = []
@@ -90,7 +95,13 @@ class Turret(pg.sprite.Sprite):
             projectile = Projectile(self, self.target, dist)
             self.projectile_group.add(projectile)
             self.last_shot = pg.time.get_ticks()
-
+            if projectile and _world.sfx_data[self.type][1]:# and pg.time.get_ticks() - self.sfx_last_played > self.sfx_cooldown / _world.game_speed:
+                self.sfx.play()
+                self.sfx_last_played = pg.time.get_ticks()
+                _world.sfx_data[self.type][0] += 1
+                # print("inc")
+        _world.sfx_manager()
+        # print("ran manager")
 
     def sell(self, world):
         world.money += int((self.total_cost * c.TURRET_SELL_VALUE)//1)
@@ -111,7 +122,7 @@ class Turret(pg.sprite.Sprite):
             self.upgrade_cost = self.type_data[self.upgrade_level]["upgrade_cost"]
             self.projectile_image = pg.image.load(self.type_data[self.upgrade_level]["projectile_image"]).convert_alpha()
             self.projectile_speed = self.type_data[self.upgrade_level]["projectile_speed"]
-            self.sfx = self.type_data[self.upgrade_level]["projectile_sfx"]
+            # self.sfx = self.type_data[self.upgrade_level]["projectile_sfx"]
             self.range_image = pg.Surface((self.range * 2, self.range * 2))
             self.range_image.fill((0,0,0))
             self.range_image.set_colorkey((0,0,0))
