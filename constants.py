@@ -38,13 +38,13 @@ UNDO_MAX = 10
 
 TURRET_SELL_VALUE = 0.75
 
-VULNERABILITY_MULT = 1.2
+VULNERABILITY_MULT = 1.4
 RESISTANCE_MULT = 0.8
 ENEMY_SPEED_CAP = 6
-ENEMY_ARMOR_CAP = 0.8
+ENEMY_ARMOR_CAP = 0.6
 
 EFFECTS = {
-    "dmg_over_time": {"dmg_mult": .05, "duration": 2000, "interval_time": 100, 'text': 'DoT'}, # higher mg_mult, higer damage done
+    "dmg_over_time": {"dmg_mult": .1, "duration": 2000, "interval_time": 100, 'text': 'DoT'}, # higher mg_mult, higer damage done
     "slow": {"speed_mult": .5, "duration": 4000, 'text': "Slow"}, # the lower speed_mult, the slower the enemies go
     "stun": {"cooldown": 8000,"duration": 2000, 'text': "Stun"},
     "armor_pen": {"armor_mult": 1.2, "duration": 0, 'text': "Armor Pen"}, # the higher armor_mult, more dmg
