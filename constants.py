@@ -45,7 +45,7 @@ ENEMY_ARMOR_CAP = 0.8
 
 EFFECTS = {
     "dmg_over_time": {"dmg_mult": .05, "duration": 2000, "interval_time": 100, 'text': 'DoT'}, # higher mg_mult, higer damage done
-    "slow": {"speed_mult": .0, "duration": 10000, 'text': "Slow"}, # the lower speed_mult, the slower the enemies go
+    "slow": {"speed_mult": .5, "duration": 4000, 'text': "Slow"}, # the lower speed_mult, the slower the enemies go
     "stun": {"cooldown": 8000,"duration": 2000, 'text': "Stun"},
     "armor_pen": {"armor_mult": 1.2, "duration": 0, 'text': "Armor Pen"}, # the higher armor_mult, more dmg
 }

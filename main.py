@@ -39,27 +39,36 @@ enemy_categories = ['Animals', 'Constructs', 'Draconic', 'Goblins', 'Humanoid', 
 
 
 archer_sfx = pg.mixer.Sound(TURRET_DATA["archer"][0]["projectile_sfx"])
+archer_sfx.set_volume(.2)
 crossbowman_sfx = pg.mixer.Sound(TURRET_DATA["crossbowman"][0]["projectile_sfx"])
+crossbowman_sfx.set_volume(.2)
 melee_sfx = pg.mixer.Sound(TURRET_DATA["melee"][0]["projectile_sfx"])
+melee_sfx.set_volume(.2)
 siege_sfx = pg.mixer.Sound(TURRET_DATA["siege"][0]["projectile_sfx"])
+siege_sfx.set_volume(.2)
 sniper_sfx = pg.mixer.Sound(TURRET_DATA["sniper"][0]["projectile_sfx"])
+sniper_sfx.set_volume(.2)
 fire_sfx = pg.mixer.Sound(TURRET_DATA["fire"][0]["projectile_sfx"])
+fire_sfx.set_volume(.2)
 frost_sfx = pg.mixer.Sound(TURRET_DATA["frost"][0]["projectile_sfx"])
+frost_sfx.set_volume(.2)
 poison_sfx = pg.mixer.Sound(TURRET_DATA["poison"][0]["projectile_sfx"])
+poison_sfx.set_volume(.2)
 electric_sfx = pg.mixer.Sound(TURRET_DATA["electric"][0]["projectile_sfx"])
+electric_sfx.set_volume(.2)
 
 
 sfx_data = {
     #[specific sfx, play sound this tick?, seconds till next sfx iteration may be played, time when sfx was played for calculating next available sfx, is the sfx on cooldown?]
-    "archer": [archer_sfx, False, 2, 0, False],
-    "crossbowman": [crossbowman_sfx, False, 2, 0, False],
-    "melee": [melee_sfx, False, 2, 0, False],
-    "siege": [siege_sfx, False, 2, 0, False],
-    "sniper": [sniper_sfx, False, 2, 0, False],
-    "fire": [fire_sfx, False, 2, 0, False],
-    "frost": [frost_sfx, False, 2, 0, False],
-    "poison": [poison_sfx, False, 2, 0, False],
-    "electric": [electric_sfx, False, 2, 0, False]
+    "archer": [archer_sfx, False, TURRET_DATA["archer"][0]["cooldown"]/2000, 0, False],
+    "crossbowman": [crossbowman_sfx, False, TURRET_DATA["crossbowman"][0]["cooldown"]/2000, 0, False],
+    "melee": [melee_sfx, False, TURRET_DATA["melee"][0]["cooldown"]/2000, 0, False],
+    "siege": [siege_sfx, False, TURRET_DATA["siege"][0]["cooldown"]/2000, 0, False],
+    "sniper": [sniper_sfx, False, TURRET_DATA["sniper"][0]["cooldown"]/2000, 0, False],
+    "fire": [fire_sfx, False, TURRET_DATA["fire"][0]["cooldown"]/2000, 0, False],
+    "frost": [frost_sfx, False, TURRET_DATA["frost"][0]["cooldown"]/2000, 0, False],
+    "poison": [poison_sfx, False, TURRET_DATA["poison"][0]["cooldown"]/2000, 0, False],
+    "electric": [electric_sfx, False, TURRET_DATA["electric"][0]["cooldown"]/2000, 0, False]
 }
 
 # self.sfx = pg.mixer.Sound(self.type_data[self.upgrade_level]["projectile_sfx"])

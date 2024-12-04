@@ -13,7 +13,7 @@ TURRET_DATA = {
         "upgrade_cost": 75,
         "image": 'assets\\towers\\archer0.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 8,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         },
         {
@@ -26,7 +26,7 @@ TURRET_DATA = {
         "upgrade_cost": 150,
         "image": 'assets\\towers\\archer1.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 9,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         },
         {
@@ -39,7 +39,7 @@ TURRET_DATA = {
         "upgrade_cost": 200,
         "image": 'assets\\towers\\archer2.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 10,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         },
         {
@@ -52,7 +52,7 @@ TURRET_DATA = {
         "upgrade_cost": 400,
         "image": 'assets\\towers\\archer3.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 11,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         },
         {
@@ -65,7 +65,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\archer4.png',
         "projectile_image": 'assets\\projectiles\\archer_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 12,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\arrow0.mp3'
         }
     ],
@@ -94,7 +94,7 @@ TURRET_DATA = {
         "upgrade_cost": 200,
         "image": 'assets\\towers\\cbm1.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 9,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         },
         {
@@ -107,7 +107,7 @@ TURRET_DATA = {
         "upgrade_cost": 300,
         "image": 'assets\\towers\\cbm2.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 10,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         },
         {
@@ -120,7 +120,7 @@ TURRET_DATA = {
         "upgrade_cost": 500,
         "image": 'assets\\towers\\cbm3.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 11,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         },
         {
@@ -133,7 +133,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\cbm4.png',
         "projectile_image": 'assets\\projectiles\\cbm_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 12,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\crossbow0.mp3'
         }
     ],
@@ -149,7 +149,7 @@ TURRET_DATA = {
         "upgrade_cost": 100,
         "image": 'assets\\towers\\melee0.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
-        "projectile_speed": 25,
+        "projectile_speed": 20,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         },
         {
@@ -162,7 +162,7 @@ TURRET_DATA = {
         "upgrade_cost": 200,
         "image": 'assets\\towers\\melee1.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
-        "projectile_speed": 25,
+        "projectile_speed": 20,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         },
         {
@@ -175,7 +175,7 @@ TURRET_DATA = {
         "upgrade_cost": 300,
         "image": 'assets\\towers\\melee2.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
-        "projectile_speed": 25,
+        "projectile_speed": 20,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         },
         {
@@ -188,7 +188,7 @@ TURRET_DATA = {
         "upgrade_cost": 500,
         "image": 'assets\\towers\\melee3.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
-        "projectile_speed": 25,
+        "projectile_speed": 20,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         },
         {
@@ -201,7 +201,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\melee4.png',
         "projectile_image": 'assets\\projectiles\\melee_proj0.png',
-        "projectile_speed": 25,
+        "projectile_speed": 20,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\melee0.mp3'
         }
     ],
@@ -217,7 +217,7 @@ TURRET_DATA = {
         "upgrade_cost": 100,
         "image": 'assets\\towers\\siege0.png',
         "projectile_image": 'assets\\projectiles\\siege_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 8,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         },
         {
@@ -230,7 +230,7 @@ TURRET_DATA = {
         "upgrade_cost": 200,
         "image": 'assets\\towers\\siege1.png',
         "projectile_image": 'assets\\projectiles\\siege_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 9,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         },
         {
@@ -243,7 +243,7 @@ TURRET_DATA = {
         "upgrade_cost": 400,
         "image": 'assets\\towers\\siege2.png',
         "projectile_image": 'assets\\projectiles\\siege_proj2.png',
-        "projectile_speed": 6,
+        "projectile_speed": 10,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         },
         {
@@ -256,7 +256,7 @@ TURRET_DATA = {
         "upgrade_cost": 800,
         "image": 'assets\\towers\\siege3.png',
         "projectile_image": 'assets\\projectiles\\siege_proj2.png',
-        "projectile_speed": 6,
+        "projectile_speed": 11,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         },
         {
@@ -269,7 +269,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\siege4.png',
         "projectile_image": 'assets\\projectiles\\siege_proj4.png',
-        "projectile_speed": 6,
+        "projectile_speed": 12,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\siege0.mp3'
         }
     ],
@@ -285,7 +285,7 @@ TURRET_DATA = {
         "upgrade_cost": 75,
         "image": 'assets\\towers\\sniper0.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
-        "projectile_speed": 11,
+        "projectile_speed": 15,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         },
         {
@@ -298,7 +298,7 @@ TURRET_DATA = {
         "upgrade_cost": 125,
         "image": 'assets\\towers\\sniper1.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
-        "projectile_speed": 12,
+        "projectile_speed": 17,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         },
         {
@@ -311,7 +311,7 @@ TURRET_DATA = {
         "upgrade_cost": 200,
         "image": 'assets\\towers\\sniper2.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
-        "projectile_speed": 13,
+        "projectile_speed": 19,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         },
         {
@@ -324,7 +324,7 @@ TURRET_DATA = {
         "upgrade_cost": 500,
         "image": 'assets\\towers\\sniper3.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
-        "projectile_speed": 14,
+        "projectile_speed": 21,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         },
         {
@@ -337,7 +337,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\sniper4.png',
         "projectile_image": 'assets\\projectiles\\sniper_proj0.png',
-        "projectile_speed": 15,
+        "projectile_speed": 23,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\sniper0.mp3'
         }
     ],
@@ -353,7 +353,7 @@ TURRET_DATA = {
         "upgrade_cost": 70,
         "image": 'assets\\towers\\fire0.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 8,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
         {
@@ -366,7 +366,7 @@ TURRET_DATA = {
         "upgrade_cost": 125,
         "image": 'assets\\towers\\fire1.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 8,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
         {
@@ -379,7 +379,7 @@ TURRET_DATA = {
         "upgrade_cost": 250,
         "image": 'assets\\towers\\fire2.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 9,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
         {
@@ -392,7 +392,7 @@ TURRET_DATA = {
         "upgrade_cost": 500,
         "image": 'assets\\towers\\fire3.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 9,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
         {
@@ -405,7 +405,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\fire4.png',
         "projectile_image": 'assets\\projectiles\\fire_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 10,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\fire0.mp3'
         },
     ],
@@ -421,11 +421,11 @@ TURRET_DATA = {
         "upgrade_cost": 75,
         "image": 'assets\\towers\\frost0.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
-        "projectile_speed": 5,
+        "projectile_speed": 7,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
         {
-        "range": 175,
+        "range": 200,
         "cooldown": 1900,
         "damage": 15,
         "damage_type": "frost",
@@ -434,11 +434,11 @@ TURRET_DATA = {
         "upgrade_cost": 125,
         "image": 'assets\\towers\\frost1.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
-        "projectile_speed": 6,
+        "projectile_speed": 8,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
         {
-        "range": 200,
+        "range": 225,
         "cooldown": 1800,
         "damage": 25,
         "damage_type": "frost",
@@ -447,11 +447,11 @@ TURRET_DATA = {
         "upgrade_cost": 250,
         "image": 'assets\\towers\\frost2.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
-        "projectile_speed": 7,
+        "projectile_speed": 9,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
         {
-        "range": 225,
+        "range": 250,
         "cooldown": 1500,
         "damage": 80,
         "damage_type": "frost",
@@ -460,7 +460,7 @@ TURRET_DATA = {
         "upgrade_cost": 500,
         "image": 'assets\\towers\\frost3.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
-        "projectile_speed": 7,
+        "projectile_speed": 10,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
         {
@@ -473,7 +473,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\frost4.png',
         "projectile_image": 'assets\\projectiles\\frost_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 10,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\frost0.mp3'
         },
     ],
@@ -502,7 +502,7 @@ TURRET_DATA = {
         "upgrade_cost": 100,
         "image": 'assets\\towers\\poison1.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
-        "projectile_speed": 10,
+        "projectile_speed": 11,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
         {
@@ -515,7 +515,7 @@ TURRET_DATA = {
         "upgrade_cost": 200,
         "image": 'assets\\towers\\poison2.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
-        "projectile_speed": 10,
+        "projectile_speed": 12,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
         {
@@ -528,7 +528,7 @@ TURRET_DATA = {
         "upgrade_cost": 400,
         "image": 'assets\\towers\\poison3.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
-        "projectile_speed": 10,
+        "projectile_speed": 13,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
         {
@@ -541,7 +541,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\poison4.png',
         "projectile_image": 'assets\\projectiles\\poison_proj0.png',
-        "projectile_speed": 10,
+        "projectile_speed": 14,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\poison0.mp3'
         },
     ],
@@ -557,7 +557,7 @@ TURRET_DATA = {
         "upgrade_cost": 100,
         "image": 'assets\\towers\\electric0.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 10,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
         {
@@ -570,7 +570,7 @@ TURRET_DATA = {
         "upgrade_cost": 200,
         "image": 'assets\\towers\\electric1.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 12,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
         {
@@ -583,7 +583,7 @@ TURRET_DATA = {
         "upgrade_cost": 400,
         "image": 'assets\\towers\\electric2.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 14,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
         {
@@ -596,7 +596,7 @@ TURRET_DATA = {
         "upgrade_cost": 800,
         "image": 'assets\\towers\\electric3.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
-        "projectile_speed": 8,
+        "projectile_speed": 16,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
         {
@@ -609,7 +609,7 @@ TURRET_DATA = {
         "upgrade_cost": 0,
         "image": 'assets\\towers\\electric4.png',
         "projectile_image": 'assets\\projectiles\\electric_proj0.png',
-        "projectile_speed": 10,
+        "projectile_speed": 18,
         "projectile_sfx": 'assets\\audio\\projectileSFX\\electric0.mp3'
         },
     ]
