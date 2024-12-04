@@ -37,6 +37,36 @@ last_enemy_spawn = pg.time.get_ticks()
 choice = None # tree path choice/enemy select
 enemy_categories = ['Animals', 'Constructs', 'Draconic', 'Goblins', 'Humanoid', 'Monsters', 'Undead']
 
+
+archer_sfx = pg.mixer.Sound(TURRET_DATA["archer"][0]["projectile_sfx"])
+crossbowman_sfx = pg.mixer.Sound(TURRET_DATA["crossbowman"][0]["projectile_sfx"])
+melee_sfx = pg.mixer.Sound(TURRET_DATA["melee"][0]["projectile_sfx"])
+siege_sfx = pg.mixer.Sound(TURRET_DATA["siege"][0]["projectile_sfx"])
+sniper_sfx = pg.mixer.Sound(TURRET_DATA["sniper"][0]["projectile_sfx"])
+fire_sfx = pg.mixer.Sound(TURRET_DATA["fire"][0]["projectile_sfx"])
+frost_sfx = pg.mixer.Sound(TURRET_DATA["frost"][0]["projectile_sfx"])
+poison_sfx = pg.mixer.Sound(TURRET_DATA["poison"][0]["projectile_sfx"])
+electric_sfx = pg.mixer.Sound(TURRET_DATA["electric"][0]["projectile_sfx"])
+
+
+sfx_data = {
+    #[specific sfx, play sound this tick?, seconds till next sfx iteration may be played, time when sfx was played for calculating next available sfx, is the sfx on cooldown?]
+    "archer": [archer_sfx, False, 2, 0, False],
+    "crossbowman": [crossbowman_sfx, False, 2, 0, False],
+    "melee": [melee_sfx, False, 2, 0, False],
+    "siege": [siege_sfx, False, 2, 0, False],
+    "sniper": [sniper_sfx, False, 2, 0, False],
+    "fire": [fire_sfx, False, 2, 0, False],
+    "frost": [frost_sfx, False, 2, 0, False],
+    "poison": [poison_sfx, False, 2, 0, False],
+    "electric": [electric_sfx, False, 2, 0, False]
+}
+
+# self.sfx = pg.mixer.Sound(self.type_data[self.upgrade_level]["projectile_sfx"])
+# self.sfx_cooldown = 1000
+# self.sfx_last_played = pg.time.get_ticks() - self.sfx_cooldown
+# self.sfx.set_volume(.25)
+
 #images
 #map
 map_image = pg.image.load('levels\\level0.png').convert_alpha()
@@ -286,36 +316,6 @@ def mouseover_details(): #consider mouseover situations when placing turrets and
             item_to_display = button
     update_info_panel(item_to_display)
 
-
-# def mouseover_details(): #consider mouseover situations when placing turrets and/or with selected turret/enemy
-#     mouseover_position = pg.mouse.get_pos()
-#     item_to_display = None
-#     if selected_turret:
-#         item_to_display = selected_turret
-#         print("turret selected")
-#     elif selected_enemy:
-#         item_to_display = selected_enemy
-#         print("enemy selected")
-#     elif any(i[0] for i in placing_turrets):
-#         for i in range(len(placing_turrets)):
-#             if placing_turrets[i][0]:
-#                 item_to_display = placing_turrets[i][1]
-#                 print("turret being placed")
-#     else:
-#         for turret in turret_group:
-#             if turret.rect.collidepoint(mouseover_position):
-#                 item_to_display = turret
-#                 print("turret mouse voer")
-#         for enemy in enemy_group:
-#             if enemy.rect.collidepoint(mouseover_position):
-#                 item_to_display = enemy
-#                 print("enemy mouse voer")
-#         for button in button_turret_group:
-#             if button.rect.collidepoint(mouseover_position):
-#                 item_to_display = button
-#                 print("button mouse voer")
-#     display_details(item_to_display)
-
 def create_turret(mouse_position, _turret_group):
     mouse_tile_x = mouse_position[0] // c.TILE_SIZE
     mouse_tile_y = mouse_position[1] // c.TILE_SIZE
@@ -328,7 +328,7 @@ def create_turret(mouse_position, _turret_group):
         if space_is_free == True:
             for i in placing_turrets:
                 if i[0] == True:
-                    turret = Turret(i[1], mouse_tile_x, mouse_tile_y, projectile_group, _turret_group)
+                    turret = Turret(i[1], mouse_tile_x, mouse_tile_y, projectile_group, _turret_group, sfx_data)
                     if turret.cost <= world.money:
                         turret_group.add(turret)
                         world.money -= turret.cost
@@ -376,6 +376,9 @@ def next_track(index):
         pg.mixer.music.play()
         return index + 1
     return 0
+
+def process_sfx():
+    pass
 
 #background music, multiple tracks
 audio_path = r"assets\\audio\\bgMusic\\"
@@ -505,6 +508,19 @@ while run:
                     enemy_group.add(enemy)
                     world.spawned_enemies += 1
                     last_enemy_spawn = pg.time.get_ticks()
+
+        for unit_type in sfx_data:
+            data = sfx_data[unit_type]
+            if data[1] is True:
+                data[0].play()
+                print("TRUE")
+                data[1] = False
+                data[3] = time.time()
+                data[4] = True
+            if time.time() > data[3] + data[2] and data[1] is False:
+                # data[1] = True
+                data[3] = 0
+                data[4] = False
 
         if world.check_level_complete() == True:
             world.money += c.LEVEL_COMPLETE_REWARD*(world.level+1)

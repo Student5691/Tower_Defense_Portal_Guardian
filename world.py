@@ -35,18 +35,18 @@ class World():
         self.missed_enemies = 0
         self.score = 0
 
-        self.sfx_data = {
-            #[number of proj sfx activations, allowed to play sfx?, tick delay before allowing more sfx, num of ticks when sfx play authorization revoked]
-            "archer": [0, True, 10000, 0],
-            "crossbowman": [0, True, 1000, 0],
-            "melee": [0, True, 1000, 0],
-            "siege": [0, True, 1000, 0],
-            "sniper": [0, True, 1000, 0],
-            "fire": [0, True, 1000, 0],
-            "frost": [0, True, 1000, 0],
-            "poison": [0, True, 1000, 0],
-            "electric": [0, True, 1000, 0]
-        }
+        # self.sfx_data = {
+        #     #[number of proj sfx activations, allowed to play sfx?, tick delay before allowing more sfx, num of ticks when sfx play authorization revoked]
+        #     "archer": [0, True, 10000, 0],
+        #     "crossbowman": [0, True, 1000, 0],
+        #     "melee": [0, True, 1000, 0],
+        #     "siege": [0, True, 1000, 0],
+        #     "sniper": [0, True, 1000, 0],
+        #     "fire": [0, True, 1000, 0],
+        #     "frost": [0, True, 1000, 0],
+        #     "poison": [0, True, 1000, 0],
+        #     "electric": [0, True, 1000, 0]
+        # }
         # self.sfx_status = {
         #     "archer": True,
         #     "crossbowman": True,
@@ -61,19 +61,20 @@ class World():
 
         self.undo_deck = deque(maxlen=c.UNDO_MAX)
 
-    def sfx_manager(self):
-        for unit_type in self.sfx_data:
-            data = self.sfx_data[unit_type]
-            if data[0] > 2:
-                if data[1] is True:
-                    data[3] = pg.time.get_ticks()
-                data[1] = False
-            # print(pg.time.get_ticks() - data[3], " > ", data[2])
-            if pg.time.get_ticks() - data[3] > data[2]:
-                data[0] = 0
-                data[1] = True
-                print("TRUE")
-        print(self.sfx_data["archer"], pg.time.get_ticks() - data[2])
+    # def sfx_manager(self):
+    #     for unit_type in self.sfx_data:
+    #         data = self.sfx_data[unit_type]
+    #         if data[0] > 2:
+    #             if data[1] is True:
+    #                 data[3] = pg.time.get_ticks()
+    #             data[1] = False
+    #         # print(pg.time.get_ticks() - data[3], " > ", data[2])
+    #         if pg.time.get_ticks() - data[3] > data[2]:
+    #             data[0] = 0
+    #             data[1] = True
+    #             # data[3] = 0
+    #             # print("TRUE")
+    #         # print(data, pg.time.get_ticks() - data[2])
 
     def process_data(self):
         x_offset = self.level_data["layers"][1]["objects"][0]["x"]
