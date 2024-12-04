@@ -13,6 +13,7 @@ class Enemy(pg.sprite.Sprite):
         self.id = random.randint(0,65535)
         self.world = _world
         self.type = _enemy_type
+        self.name = ENEMY_DATA[self.type[0]][self.type[1]]["name"]
         self.waypoints = _waypoints
         self.position = Vector2(self.waypoints[0])
         self.target_waypoint = 1

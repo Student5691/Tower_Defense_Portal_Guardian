@@ -2,7 +2,7 @@ import pygame as pg
 import json
 import random
 import time
-from collections import deque
+# from collections import deque
 from functools import partial
 
 import constants as c
@@ -121,6 +121,7 @@ def update_info_panel(item):
     img_size = (75, 75)
     if isinstance(item, Turret):
         data = item.type_data[item.upgrade_level]
+        name = item.name
         image = pg.transform.scale(pg.image.load(data["image"]).convert_alpha(), img_size)
         damage = str(data["damage"])
         max_range = str(data["range"])
@@ -145,6 +146,7 @@ def update_info_panel(item):
             upgrade_cost = str(data["upgrade_cost"])
         # screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
         screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
+        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 202)
         draw_text("Upgrade Cost: " + upgrade_cost, small_font, "grey100", c.SCREEN_WIDTH + 7, 330)
         draw_text("Damage: " + damage, small_font, "grey100", c.SCREEN_WIDTH + 7, 350)
         draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 370)
@@ -156,6 +158,7 @@ def update_info_panel(item):
 
     elif isinstance(item, Enemy):
         data = ENEMY_DATA[item.type[0]][item.type[1]]
+        name = item.name
         # image = pg.image.load(data["image"]).convert_alpha()
         image = pg.transform.scale(pg.image.load(data["image"]).convert_alpha(), img_size)
         hp = str(int(item.base_hp))
@@ -180,6 +183,7 @@ def update_info_panel(item):
         # value = str(data["value"])
         value = str(int(item.value))
         screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
+        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 202)
         draw_text("Health: " + hp, small_font, "grey100", c.SCREEN_WIDTH + 7, 330)
         draw_text("Speed: " + speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 350)
         draw_text("Armor: " + armor, small_font, "grey100", c.SCREEN_WIDTH + 7, 370)
@@ -191,6 +195,7 @@ def update_info_panel(item):
 
     elif isinstance(item, Button):
         data = TURRET_DATA[item.id][0]
+        name = item.id.title()
         # image = pg.image.load(data["image"]).convert_alpha()
         image = pg.transform.scale(pg.image.load(data["image"]).convert_alpha(), img_size)
         damage = str(data["damage"])
@@ -213,6 +218,7 @@ def update_info_panel(item):
         upgrade_cost = str(data["upgrade_cost"])
         cost = str(data["cost"])
         screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
+        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 202)
         draw_text("Cost: " + cost, small_font, "grey100", c.SCREEN_WIDTH + 7, 330)
         draw_text("Damage: " + damage, small_font, "grey100", c.SCREEN_WIDTH + 7, 350)
         draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 370)
@@ -224,6 +230,7 @@ def update_info_panel(item):
 
     elif type(item) is str:
         data = TURRET_DATA[item][0]
+        name = item.title()
         # image = pg.image.load(data["image"]).convert_alpha()
         image = pg.transform.scale(pg.image.load(data["image"]).convert_alpha(), img_size)
         damage = str(data["damage"])
@@ -245,6 +252,7 @@ def update_info_panel(item):
         projectile_speed = str(data["projectile_speed"])
         cost = str(data["cost"])
         screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
+        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 202)
         draw_text("Cost: " + cost, small_font, "grey100", c.SCREEN_WIDTH + 7, 330)
         draw_text("Damage: " + damage, small_font, "grey100", c.SCREEN_WIDTH + 7, 350)
         draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 370)
@@ -308,7 +316,7 @@ def mouseover_details(): #consider mouseover situations when placing turrets and
 #                 print("button mouse voer")
 #     display_details(item_to_display)
 
-def create_turret(mouse_position):
+def create_turret(mouse_position, _turret_group):
     mouse_tile_x = mouse_position[0] // c.TILE_SIZE
     mouse_tile_y = mouse_position[1] // c.TILE_SIZE
     mouse_title_num = (mouse_tile_y * c.COLS) + mouse_tile_x
@@ -320,7 +328,7 @@ def create_turret(mouse_position):
         if space_is_free == True:
             for i in placing_turrets:
                 if i[0] == True:
-                    turret = Turret(i[1], mouse_tile_x, mouse_tile_y, projectile_group)
+                    turret = Turret(i[1], mouse_tile_x, mouse_tile_y, projectile_group, _turret_group)
                     if turret.cost <= world.money:
                         turret_group.add(turret)
                         world.money -= turret.cost
@@ -593,7 +601,7 @@ while run:
                 selected_enemy = clear_enemy_selection()
                 if any(i[0] for i in placing_turrets):
                     # if world.money >= c.BUY_COST:
-                    create_turret(mouse_position)
+                    create_turret(mouse_position, turret_group)
                 else:
                     selected_turret = select_turret(mouse_position)
                     selected_enemy = select_enemy(mouse_position) #########need to create this function

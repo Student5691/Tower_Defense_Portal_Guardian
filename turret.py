@@ -7,11 +7,13 @@ from turret_data import TURRET_DATA
 from projectile import Projectile
 
 class Turret(pg.sprite.Sprite):
-    def __init__(self, _type, _tile_x, _tile_y, _projectile_group):
+    def __init__(self, _type, _tile_x, _tile_y, _projectile_group, _turret_group):
         pg.sprite.Sprite.__init__(self)
         self.type_data = TURRET_DATA[_type]
+        self.name = _type.title()
         self.upgrade_level = 0
         self.upgrade_limit = len(self.type_data) - 1
+        self.turret_group = _turret_group
 
         # self.sprite_sheets = _sprite_sheets
         self.original_image = pg.image.load(self.type_data[self.upgrade_level]["image"]).convert_alpha()
@@ -120,23 +122,24 @@ class Turret(pg.sprite.Sprite):
             world.undo_deck.append(partial(self.undo, world))
 
     def undo(self, world):
-        if self.upgrade_level > 0:
-            self.upgrade_level -= 1
-            self.original_image = pg.image.load(self.type_data[self.upgrade_level]["image"]).convert_alpha()
-            self.range = self.type_data[self.upgrade_level]["range"]
-            self.cooldown = self.type_data[self.upgrade_level]["cooldown"]
-            self.damage = self.type_data[self.upgrade_level]["damage"]            
-            self.upgrade_cost = self.type_data[self.upgrade_level]["upgrade_cost"]
-            self.total_cost -= self.upgrade_cost
-            world.money += self.upgrade_cost
+        if self in self.turret_group:
+            if self.upgrade_level > 0:
+                self.upgrade_level -= 1
+                self.original_image = pg.image.load(self.type_data[self.upgrade_level]["image"]).convert_alpha()
+                self.range = self.type_data[self.upgrade_level]["range"]
+                self.cooldown = self.type_data[self.upgrade_level]["cooldown"]
+                self.damage = self.type_data[self.upgrade_level]["damage"]            
+                self.upgrade_cost = self.type_data[self.upgrade_level]["upgrade_cost"]
+                self.total_cost -= self.upgrade_cost
+                world.money += self.upgrade_cost
 
-            self.range_image = pg.Surface((self.range * 2, self.range * 2))
-            self.range_image.fill((0,0,0))
-            self.range_image.set_colorkey((0,0,0))
-            pg.draw.circle(self.range_image, "grey100", (self.range, self.range), self.range)
-            self.range_image.set_alpha(100)
-            self.range_rect = self.range_image.get_rect()
-            self.range_rect.center = self.rect.center
-        else:
-            world.money += self.cost
-            self.kill()
+                self.range_image = pg.Surface((self.range * 2, self.range * 2))
+                self.range_image.fill((0,0,0))
+                self.range_image.set_colorkey((0,0,0))
+                pg.draw.circle(self.range_image, "grey100", (self.range, self.range), self.range)
+                self.range_image.set_alpha(100)
+                self.range_rect = self.range_image.get_rect()
+                self.range_rect.center = self.rect.center
+            else:
+                world.money += self.cost
+                self.kill()

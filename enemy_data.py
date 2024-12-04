@@ -26,7 +26,8 @@ ENEMY_SPAWN_DATA = [
 
 ENEMY_DATA = {
     "animal": [
-        {#snake
+        {
+            "name": "Large Snake",
             "hp": 100,
             "speed": 2.5,
             "armor": 0.05,
@@ -35,7 +36,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\animal\\animal0.png',
             "value": 2
         },
-        {#croc/alligator
+        {
+            "name": "Enraged Croc",
             "hp": 150,
             "speed": 2,
             "armor": .3,
@@ -44,7 +46,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\animal\\animal1.png',
             "value": 2
         },
-        {#gorilla
+        {
+            "name": "Great Ape",
             "hp": 200,
             "speed": 2,
             "armor": .1,
@@ -53,7 +56,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\animal\\animal2.png',
             "value": 2
         },
-        {#bear
+        {
+            "name": "Grizzly",
             "hp": 250,
             "speed": 3,
             "armor": .2,
@@ -64,7 +68,8 @@ ENEMY_DATA = {
         },
     ],
     "construct": [
-        {#winged stone golem
+        {
+            "name": "Gargoyle",
             "hp": 75,
             "speed": 3,
             "armor": .1,
@@ -73,7 +78,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\construct\\construct0.png',
             "value": 2
         },
-        {#animated armor
+        {
+            "name": "Living Armor",
             "hp": 100,
             "speed": 2,
             "armor": .2,
@@ -82,7 +88,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\construct\\construct1.png',
             "value": 2
         },
-        {#flying mechanical automaton
+        {
+            "name": "Dwarven Automaton",
             "hp": 150,
             "speed": 2.5,
             "armor": .3,
@@ -91,7 +98,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\construct\\construct2.png',
             "value": 2
         },
-        {#steel prowler construct
+        {
+            "name": "Steel Prowler",
             "hp": 200,
             "speed": 3,
             "armor": .4,
@@ -102,7 +110,8 @@ ENEMY_DATA = {
         },
     ],
     "dragon": [
-        {#kobold grunt
+        {
+            "name": "Kobold",
             "hp": 100,
             "speed": 2,
             "armor": .05,
@@ -111,7 +120,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\dragon\\dragon0.png',
             "value": 2
         },
-        {#dragonborn warrior
+        {
+            "name": "Dragonborn",
             "hp": 150,
             "speed": 1.75,
             "armor": .25,
@@ -120,7 +130,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\dragon\\dragon1.png',
             "value": 2
         },
-        {#dragon scout
+        {
+            "name": "Dragon Scout",
             "hp": 225,
             "speed": 3,
             "armor": .2,
@@ -129,7 +140,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\dragon\\dragon2.png',
             "value": 2
         },
-        {#green dragon
+        {
+            "name": "Green Dragon",
             "hp": 275,
             "speed": 2,
             "armor": .3,
@@ -140,7 +152,8 @@ ENEMY_DATA = {
         },
     ],
     "goblin": [
-        {#goblin grunt
+        {
+            "name": "Goblin",
             "hp": 100,
             "speed": 2,
             "armor": 0.05,
@@ -149,7 +162,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\goblin\\goblin0.png',
             "value": 2
         },
-        {#goblin sapper
+        {
+            "name": "Saboteur",
             "hp": 75,
             "speed": 4,
             "armor": 0.01,
@@ -158,7 +172,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\goblin\\goblin1.png',
             "value": 2
         },
-        {#goblin berserker
+        {
+            "name": "Berserker",
             "hp": 195,
             "speed": 2.5,
             "armor": .2,
@@ -167,7 +182,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\goblin\\goblin2.png',
             "value": 2
         },
-        {#goblin shaman
+        {
+            "name": "Shaman",
             "hp": 155,
             "speed": 2,
             "armor": .1,
@@ -178,7 +194,8 @@ ENEMY_DATA = {
         },
     ],
     "humanoid": [
-        {#gnoll warrior
+        {
+            "name": "Gnoll Warrior",
             "hp": 120,
             "speed": 2,
             "armor": 0.05,
@@ -187,7 +204,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\humanoid\\humanoid0.png',
             "value": 2
         },
-        {#bugbear bruiser
+        {
+            "name": "Bugbear Bruiser",
             "hp": 175,
             "speed": 1.8,
             "armor": .1,
@@ -196,7 +214,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\humanoid\\humanoid1.png',
             "value": 2
         },
-        {#werebear
+        {
+            "name": "Werebear",
             "hp": 225,
             "speed": 1.9,
             "armor": .1,
@@ -205,7 +224,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\humanoid\\humanoid2.png',
             "value": 2
         },
-        {#werewolf
+        {
+            "name": "Werewolf",
             "hp": 200,
             "speed": 3.5,
             "armor": 0.05,
@@ -216,7 +236,8 @@ ENEMY_DATA = {
         },
     ],
     "monstrous": [
-        {#flying creature
+        {
+            "name": "Winged Horror",
             "hp": 75,
             "speed": 3,
             "armor": .05,
@@ -225,7 +246,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\monstrous\\monstrous0.png',
             "value": 2
         },
-        {#hellhound
+        {
+            "name": "Hellhound",
             "hp": 125,
             "speed": 2.5,
             "armor": .1,
@@ -234,7 +256,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\monstrous\\monstrous1.png',
             "value": 2
         },
-        {#scary slug-crab
+        {
+            "name": "Slug Thing",
             "hp": 175,
             "speed": 1.75,
             "armor": .2,
@@ -243,7 +266,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\monstrous\\monstrous2.png',
             "value": 2
         },
-        {#demon lord
+        {
+            "name": "Demon Lord",
             "hp": 200,
             "speed": 2,
             "armor": .15,
@@ -254,7 +278,8 @@ ENEMY_DATA = {
         },
     ],
     "undead": [
-        {#skeleton warrior
+        {
+            "name": "Bone Soldier",
             "hp": 100,
             "speed": 2,
             "armor": .2,
@@ -263,7 +288,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\undead\\undead0.png',
             "value": 1
         },
-        {#wraith skull
+        {
+            "name": "Burning Skull",
             "hp": 125,
             "speed": 3.2,
             "armor": .35,
@@ -272,7 +298,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\undead\\undead1.png',
             "value": 2
         },
-        {#spirit
+        {
+            "name": "Wraith",
             "hp": 160,
             "speed": 3,
             "armor": .3,
@@ -281,7 +308,8 @@ ENEMY_DATA = {
             "image": 'assets\\enemy\\undead\\undead2.png',
             "value": 2
         },
-        {#ghoul
+        {
+            "name": "Ghoul",
             "hp": 230,
             "speed": 2.5,
             "armor": .3,
@@ -293,6 +321,7 @@ ENEMY_DATA = {
     ],
     "reaper": [
         {
+            "name": "Reaper",
             "hp": 10000,
             "speed": 2,
             "armor": .5,
