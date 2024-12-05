@@ -641,9 +641,7 @@ while run: #main game loop
         if selected_turret:
             if selected_turret.upgrade_level < selected_turret.upgrade_limit:
                 if upgrade_turret_button.draw(screen):
-                    print("button Pressed")
                     if world.money >= selected_turret.upgrade_cost:
-                        print("eneough money!")
                         selected_turret.upgrade(world)
             if sell_turret_button.draw(screen):
                 selected_turret.sell(world)

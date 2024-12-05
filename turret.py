@@ -90,9 +90,7 @@ class Turret(pg.sprite.Sprite):
         self.kill()
 
     def upgrade(self, world):
-        print(1)
         if self.upgrade_level < self.upgrade_limit:
-            print(2)
             world.money -= self.upgrade_cost
             self.upgrade_level += 1
             self.original_image = pg.image.load(self.type_data[self.upgrade_level]["image"]).convert_alpha()
