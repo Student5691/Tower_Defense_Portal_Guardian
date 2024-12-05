@@ -1,5 +1,3 @@
-import pygame as pg
-
 TURRET_DATA = {
     "archer": [
         {

@@ -2,7 +2,6 @@ import pygame as pg
 import json
 import random
 import time
-# from collections import deque
 from functools import partial
 
 import constants as c
@@ -25,14 +24,12 @@ pg.display.set_caption("Tower Defense")
 with open('levels\\level0.tmj') as file:
     world_data = json.load(file)
 
-#load hiscores
+#load hiscores (list)
 with open('data\\scores.txt', "r") as file:
     hiscores = []
     for line in file:
         score, name = line.strip().split(", ")
         hiscores.append((int(score), name))
-
-# print(pg.color.THECOLORS.keys())
 
 #game variables
 game_over = False
@@ -40,12 +37,12 @@ game_outcome = 0 # -1 is a loss and 1 is a win
 level_started = False
 volume = 1
 spawn_cooldown = 800
-placing_turrets = [[False, "archer"], [False, "crossbowman"], [False, "melee"], [False, "siege"], [False, "sniper"], [False, "fire"], [False, "frost"], [False, "poison"], [False, "electric"]]
+placing_turrets = [[False, "archer"], [False, "crossbowman"], [False, "melee"], [False, "siege"], [False, "sniper"], [False, "fire"], [False, "frost"], [False, "poison"], [False, "electric"]] #list
 selected_turret = None
 selected_enemy = None
 last_enemy_spawn = pg.time.get_ticks()
 choice = None # tree path choice/enemy select
-enemy_categories = ['Animals', 'Constructs', 'Draconic', 'Goblins', 'Humanoid', 'Monsters', 'Undead']
+enemy_categories = ['Animals', 'Constructs', 'Draconic', 'Goblins', 'Humanoid', 'Monsters', 'Undead'] #list
 user_name = "Anonymous"
 temp_user_name = ''
 typing = False
@@ -69,8 +66,7 @@ poison_sfx.set_volume(.3*volume)
 electric_sfx = pg.mixer.Sound(TURRET_DATA["electric"][0]["projectile_sfx"])
 electric_sfx.set_volume(.25*volume)
 
-
-sfx_data = {
+sfx_data = { #hash and list
     #[specific sfx, play sound this tick?, seconds till next sfx iteration may be played, time when sfx was played for calculating next available sfx, is the sfx on cooldown?]
     "archer": [archer_sfx, False, TURRET_DATA["archer"][0]["cooldown"]/2000, 0, False],
     "crossbowman": [crossbowman_sfx, False, TURRET_DATA["crossbowman"][0]["cooldown"]/2000, 0, False],
@@ -83,12 +79,6 @@ sfx_data = {
     "electric": [electric_sfx, False, TURRET_DATA["electric"][0]["cooldown"]/2000, 0, False]
 }
 
-# self.sfx = pg.mixer.Sound(self.type_data[self.upgrade_level]["projectile_sfx"])
-# self.sfx_cooldown = 1000
-# self.sfx_last_played = pg.time.get_ticks() - self.sfx_cooldown
-# self.sfx.set_volume(.25)
-
-#images
 #map
 map_image = pg.image.load('levels\\level0.png').convert_alpha()
 #buildable spaces
@@ -99,14 +89,14 @@ world = World(world_data, map_image)
 world.process_data()
 world.process_enemies()
 
-#create groups
+#create groups to hold instances of classes
 enemy_group = pg.sprite.Group()
 turret_group = pg.sprite.Group()
 projectile_group = pg.sprite.Group()
 button_turret_group = pg.sprite.Group()
 
 #individual turret images for mouse cursor when placing turrets
-cursor_turrets = []
+cursor_turrets = [] #list
 for i in range(9):
     if i == 0:
         name = "archer"
@@ -146,7 +136,7 @@ med_font = pg.font.SysFont("Consolas", 22, bold = True)
 large_font = pg.font.SysFont("Consolas", 36)
 
 #button images
-buy_turret_images = []
+buy_turret_images = [] #list
 for i in range(9):
     buy_turret_images.append((pg.image.load(f'assets\\buttons\\towers\\button{i}.png').convert_alpha(), placing_turrets[i][1]))
 cancel_image = pg.image.load('assets\\buttons\\cancel.png').convert_alpha()
@@ -162,16 +152,22 @@ vol_down_image = pg.image.load('assets\\buttons\\vol_down.png').convert_alpha()
 vol_icon_image = pg.image.load('assets\\buttons\\vol_icon.png').convert_alpha()
 hiscores_image = pg.image.load('assets\\buttons\\hiscores.png').convert_alpha()
 
+#create groups
+enemy_group = pg.sprite.Group()
+turret_group = pg.sprite.Group()
+projectile_group = pg.sprite.Group()
+button_turret_group = pg.sprite.Group()
+
 #create buttons
-buy_turret_buttons = []
+buy_turret_buttons = [] #list
 for i in range(len(buy_turret_images)):
     row = i % 4
     col = i // 4
     buy_turret_buttons.append(Button(c.SCREEN_WIDTH + 2 + (2+c.TILE_SIZE)*row, 550 + 2 + (2+c.TILE_SIZE)*col, buy_turret_images[i][0], True, buy_turret_images[i][1]))
     button_turret_group.add(buy_turret_buttons[i])
 cancel_button = Button(c.SCREEN_WIDTH + 203, 686, cancel_image, True)
-upgrade_turret_button = Button(c.SCREEN_WIDTH + 215, 300, upgrade_turret_image, True)
-sell_turret_button = Button(c.SCREEN_WIDTH + 210, 205, sell_turret_image, True)
+upgrade_turret_button = Button(c.SCREEN_WIDTH + 215, 330, upgrade_turret_image, True)
+sell_turret_button = Button(c.SCREEN_WIDTH + 212, 215, sell_turret_image, True)
 begin_button = Button(c.SCREEN_WIDTH + 179, 2, begin_image, True)
 restart_button = Button(300, 300, restart_image, True)
 fast_forward_button = Button(c.SCREEN_WIDTH + 179, 79, fast_forward_image, False)
@@ -188,7 +184,7 @@ def draw_text(text, font, text_color, x, y):
 def display_data():
     pg.draw.rect(screen, "grey50", (c.SCREEN_WIDTH, 0, c.SIDE_PANEL, c.SCREEN_HEIGHT))
     pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH, 0, c.SIDE_PANEL, 206), 2)
-    pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH, 173, c.SIDE_PANEL, 311), 2)
+    pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH, 173, c.SIDE_PANEL, 325), 2)
     draw_text("LEVEL: " + str(world.level+1),med_font, "grey100", c.SCREEN_WIDTH + 10, 10)
     screen.blit(heart_image, (c.SCREEN_WIDTH + 10, 35))
     draw_text(str(world.hp),med_font, "grey100", c.SCREEN_WIDTH + 40, 35)
@@ -238,22 +234,20 @@ def update_info_panel(item):
             upgrade_cost = 'MAX LEVEL'
         else:
             upgrade_cost = str(data["upgrade_cost"])
-        # screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
-        screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
-        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 202)
-        draw_text("Upgrade Cost: " + upgrade_cost, small_font, "grey100", c.SCREEN_WIDTH + 7, 330)
-        draw_text("Damage: " + damage, small_font, "grey100", c.SCREEN_WIDTH + 7, 350)
-        draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 370)
-        draw_text("Cooldown: " + time_between_shoots, small_font, "grey100", c.SCREEN_WIDTH + 7, 390)
-        draw_text("Range: " + max_range, small_font, "grey100", c.SCREEN_WIDTH + 7, 410)
-        draw_text("Multi Target: " + targets, small_font, "grey100", c.SCREEN_WIDTH + 7, 430)
-        draw_text("Projectile Speed: " + projectile_speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 450)
-        draw_text("Effect: " + effect, small_font, "grey100", c.SCREEN_WIDTH + 7, 470)
+        screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 212+image.get_height()//2))
+        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 212)
+        draw_text("Upgrade Cost: " + upgrade_cost, small_font, (255, 197, 7), c.SCREEN_WIDTH + 7, 340)
+        draw_text("Damage: " + damage, small_font, "green", c.SCREEN_WIDTH + 7, 360)
+        draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 380)
+        draw_text("Cooldown: " + time_between_shoots, small_font, "grey100", c.SCREEN_WIDTH + 7, 400)
+        draw_text("Range: " + max_range, small_font, "grey100", c.SCREEN_WIDTH + 7, 420)
+        draw_text("Multi Target: " + targets, small_font, "grey100", c.SCREEN_WIDTH + 7, 440)
+        draw_text("Projectile Speed: " + projectile_speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 460)
+        draw_text("Effect: " + effect, small_font, "grey100", c.SCREEN_WIDTH + 7, 480)
 
     elif isinstance(item, Enemy):
         data = ENEMY_DATA[item.type[0]][item.type[1]]
         name = item.name
-        # image = pg.image.load(data["image"]).convert_alpha()
         image = pg.transform.scale(pg.image.load(data["image"]).convert_alpha(), img_size)
         hp = str(int(item.base_hp))
         speed = str(int(item.base_speed))
@@ -274,23 +268,21 @@ def update_info_panel(item):
                 vulnerabilities += c.DMG_TYPES[data["dmg_vulnerability"][i]] + ', '
         if vulnerabilities == '':
             vulnerabilities = 'None'
-        # value = str(data["value"])
         value = str(int(item.value))
-        screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
-        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 202)
-        draw_text("Health: " + hp, small_font, "grey100", c.SCREEN_WIDTH + 7, 330)
-        draw_text("Speed: " + speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 350)
-        draw_text("Armor: " + armor, small_font, "grey100", c.SCREEN_WIDTH + 7, 370)
-        draw_text("Resistances:", small_font, "grey100", c.SCREEN_WIDTH + 7, 390)
-        draw_text("  " + resistances, small_font, "grey100", c.SCREEN_WIDTH + 7, 410)
-        draw_text("Vulnerabilities:", small_font, "grey100", c.SCREEN_WIDTH + 7, 430)
-        draw_text("  " + vulnerabilities, small_font, "grey100", c.SCREEN_WIDTH + 7, 450)
-        draw_text("Value: " + value, small_font, "grey100", c.SCREEN_WIDTH + 7, 470)
+        screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 212+image.get_height()//2))
+        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 212)
+        draw_text("Health: " + hp, small_font, "green", c.SCREEN_WIDTH + 7, 340)
+        draw_text("Speed: " + speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 360)
+        draw_text("Armor: " + armor, small_font, "grey100", c.SCREEN_WIDTH + 7, 380)
+        draw_text("Resistances:", small_font, "grey100", c.SCREEN_WIDTH + 7, 400)
+        draw_text("  " + resistances, small_font, "grey100", c.SCREEN_WIDTH + 7, 420)
+        draw_text("Vulnerabilities:", small_font, "grey100", c.SCREEN_WIDTH + 7, 440)
+        draw_text("  " + vulnerabilities, small_font, "grey100", c.SCREEN_WIDTH + 7, 460)
+        draw_text("Value: " + value, small_font, "grey100", c.SCREEN_WIDTH + 7, 480)
 
     elif isinstance(item, Button):
         data = TURRET_DATA[item.id][0]
         name = item.id.title()
-        # image = pg.image.load(data["image"]).convert_alpha()
         image = pg.transform.scale(pg.image.load(data["image"]).convert_alpha(), img_size)
         damage = str(data["damage"])
         max_range = str(data["range"])
@@ -311,21 +303,20 @@ def update_info_panel(item):
         projectile_speed = str(data["projectile_speed"])
         upgrade_cost = str(data["upgrade_cost"])
         cost = str(data["cost"])
-        screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
-        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 202)
-        draw_text("Cost: " + cost, small_font, "grey100", c.SCREEN_WIDTH + 7, 330)
-        draw_text("Damage: " + damage, small_font, "grey100", c.SCREEN_WIDTH + 7, 350)
-        draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 370)
-        draw_text("Cooldown: " + time_between_shoots, small_font, "grey100", c.SCREEN_WIDTH + 7, 390)
-        draw_text("Range: " + max_range, small_font, "grey100", c.SCREEN_WIDTH + 7, 410)
-        draw_text("Multi Target: " + targets, small_font, "grey100", c.SCREEN_WIDTH + 7, 430)
-        draw_text("Projectile Speed: " + projectile_speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 450)
-        draw_text("Effect: " + effect, small_font, "grey100", c.SCREEN_WIDTH + 7, 470)
+        screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 212+image.get_height()//2))
+        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 212)
+        draw_text("Cost: " + cost, small_font, (255, 197, 7), c.SCREEN_WIDTH + 7, 340)
+        draw_text("Damage: " + damage, small_font, "green", c.SCREEN_WIDTH + 7, 360)
+        draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 380)
+        draw_text("Cooldown: " + time_between_shoots, small_font, "grey100", c.SCREEN_WIDTH + 7, 400)
+        draw_text("Range: " + max_range, small_font, "grey100", c.SCREEN_WIDTH + 7, 420)
+        draw_text("Multi Target: " + targets, small_font, "grey100", c.SCREEN_WIDTH + 7, 440)
+        draw_text("Projectile Speed: " + projectile_speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 460)
+        draw_text("Effect: " + effect, small_font, "grey100", c.SCREEN_WIDTH + 7, 480)
 
     elif type(item) is str:
         data = TURRET_DATA[item][0]
         name = item.title()
-        # image = pg.image.load(data["image"]).convert_alpha()
         image = pg.transform.scale(pg.image.load(data["image"]).convert_alpha(), img_size)
         damage = str(data["damage"])
         max_range = str(data["range"])
@@ -345,27 +336,27 @@ def update_info_panel(item):
             targets = '1'
         projectile_speed = str(data["projectile_speed"])
         cost = str(data["cost"])
-        screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 202+image.get_height()//2))
-        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 202)
-        draw_text("Cost: " + cost, small_font, "grey100", c.SCREEN_WIDTH + 7, 330)
-        draw_text("Damage: " + damage, small_font, "grey100", c.SCREEN_WIDTH + 7, 350)
-        draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 370)
-        draw_text("Cooldown: " + time_between_shoots, small_font, "grey100", c.SCREEN_WIDTH + 7, 390)
-        draw_text("Range: " + max_range, small_font, "grey100", c.SCREEN_WIDTH + 7, 410)
-        draw_text("Multi Target: " + targets, small_font, "grey100", c.SCREEN_WIDTH + 7, 430)
-        draw_text("Projectile Speed: " + projectile_speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 450)
-        draw_text("Effect: " + effect, small_font, "grey100", c.SCREEN_WIDTH + 7, 470)
+        screen.blit(image, (c.SCREEN_WIDTH + 2+image.get_width()//2, 212+image.get_height()//2))
+        draw_text(name, med_font, "grey100", c.SCREEN_WIDTH + 7, 212)
+        draw_text("Cost: " + cost, small_font, (255, 197, 7), c.SCREEN_WIDTH + 7, 340)
+        draw_text("Damage: " + damage, small_font, "green", c.SCREEN_WIDTH + 7, 360)
+        draw_text("Damage type: " + damage_type, small_font, "grey100", c.SCREEN_WIDTH + 7, 380)
+        draw_text("Cooldown: " + time_between_shoots, small_font, "grey100", c.SCREEN_WIDTH + 7, 400)
+        draw_text("Range: " + max_range, small_font, "grey100", c.SCREEN_WIDTH + 7, 420)
+        draw_text("Multi Target: " + targets, small_font, "grey100", c.SCREEN_WIDTH + 7, 440)
+        draw_text("Projectile Speed: " + projectile_speed, small_font, "grey100", c.SCREEN_WIDTH + 7, 460)
+        draw_text("Effect: " + effect, small_font, "grey100", c.SCREEN_WIDTH + 7, 480)
     else:
         print('display_details() function error')
 
-def mouseover_details(): #consider mouseover situations when placing turrets and/or with selected turret/enemy
+def mouseover_details():
     mouseover_position = pg.mouse.get_pos()
     item_to_display = None
     if selected_turret:
         item_to_display = selected_turret
     elif selected_enemy:
         item_to_display = selected_enemy
-    elif any(i[0] for i in placing_turrets):
+    elif any(i[0] for i in placing_turrets): #search
         for i in range(len(placing_turrets)):
             if placing_turrets[i][0]:
                 item_to_display = placing_turrets[i][1]
@@ -383,8 +374,8 @@ def mouseover_details(): #consider mouseover situations when placing turrets and
 def create_turret(mouse_position, _turret_group):
     mouse_tile_x = mouse_position[0] // c.TILE_SIZE
     mouse_tile_y = mouse_position[1] // c.TILE_SIZE
-    mouse_title_num = (mouse_tile_y * c.COLS) + mouse_tile_x
-    if world.tile_map[mouse_title_num] == 25:
+    mouse_tile_num = (mouse_tile_y * c.COLS) + mouse_tile_x
+    if world.tile_map[mouse_tile_num] == 25: #search
         space_is_free = True
         for turret in turret_group:
             if (mouse_tile_x, mouse_tile_y) == (turret.tile_x, turret.tile_y):
@@ -396,20 +387,20 @@ def create_turret(mouse_position, _turret_group):
                     if turret.cost <= world.money:
                         turret_group.add(turret)
                         world.money -= turret.cost
-                        world.undo_deck.append(partial(turret.undo, world))
+                        world.undo_deck.append(partial(turret.undo, world)) #append to deque
                     else:
                         turret.kill()
 
 def select_turret(mouse_position):
     mouse_tile_x = mouse_position[0] // c.TILE_SIZE
     mouse_tile_y = mouse_position[1] // c.TILE_SIZE
-    for turret in turret_group:
+    for turret in turret_group: #search
         if (mouse_tile_x, mouse_tile_y) == (turret.tile_x, turret.tile_y):
             clear_enemy_selection()
             return turret
         
 def select_enemy(mouse_position):
-    for enemy in enemy_group:
+    for enemy in enemy_group: #search
         if enemy.rect.collidepoint(mouse_position):
             clear_turret_selection()
             enemy.selected = True
@@ -466,7 +457,7 @@ def save_hiscore():
         for score, name in scores:
             file.write(f"{score}, {name}\n")
 
-def display_hiscores(_world):
+def display_hiscores():
     dimension_x = 295
     dimension_y = 305
     top_left_corner_x = c.SCREEN_WIDTH-dimension_x
@@ -487,7 +478,7 @@ def display_hiscores(_world):
 
 #background music, multiple tracks
 audio_path = r"assets\\audio\\bgMusic\\"
-background_audio_playlist = []
+background_audio_playlist = [] #list
 for i in range(10):
     background_audio_playlist.append(audio_path + str(i) + ".mp3")
 random.shuffle(background_audio_playlist)
@@ -497,7 +488,7 @@ pg.mixer.music.set_volume(0.2*volume)
 current_track_index = next_track(0) #begin first track
 
 wandering_waypoints_data = world_data["layers"][2]["objects"][0]
-wandering_waypoints = []
+wandering_waypoints = [] #list
 process_wandering_waypoints()
 spawn_wandering_enemy_timer = time.time()
 
@@ -506,14 +497,8 @@ world = World(world_data, map_image)
 world.process_data()
 world.process_enemies()
 
-#create groups
-enemy_group = pg.sprite.Group()
-turret_group = pg.sprite.Group()
-projectile_group = pg.sprite.Group()
-button_turret_group = pg.sprite.Group()
-
 run = True # should the game continue running?
-while run:
+while run: #main game loop
     clock.tick(c.FPS) # set framerate cap
 
     if game_over == False:
@@ -530,31 +515,33 @@ while run:
         enemy_group.update(world)
         turret_group.update(enemy_group, world)
         projectile_group.update(world)
-        #highlight selected turret
+
+        #turret/enemy selection if a turret is selected, update teh turret's "selected" member to True
         if selected_turret:
-            selected_turret.selected = True ############################maybe need to cancel out selected enemy and vice versa
+            selected_turret.selected = True
         if selected_enemy:
             selected_enemy.selected = True
 
-    #draw level
+    #draw map
     world.draw(screen)
-    # world.sfx_manager()
 
     #draw groups
     enemy_group.draw(screen)
-    projectile_group.draw(screen)
-    for turret in turret_group:
-        turret.draw(screen)
-    
     for enemy in enemy_group:
         enemy.draw_hp(screen)
+
+    projectile_group.draw(screen)
+
+    for turret in turret_group:
+        turret.draw(screen)
 
     display_data()
     mouseover_details()
 
     if game_over == False:
         if level_started == False:
-            world.game_speed = 1
+            world.game_speed = 1 #avoids fast-forward getting stuck upon level completion by resetting world speed
+            #player choice using binary tree
             if choice is None and world.tree_level > 0 and enemy_categories[world.leftNode.value] != enemy_categories[world.rightNode.value]:
                 curText0 = enemy_categories[world.leftNode.value]
                 curText1 = enemy_categories[world.rightNode.value]
@@ -589,7 +576,7 @@ while run:
                 world.game_speed = c.FAST_FORWARD_SPEED
             else:
                 world.game_speed = 1
-
+            #spawn enemies
             if pg.time.get_ticks() - last_enemy_spawn > spawn_cooldown / world.game_speed:
                 if world.spawned_enemies < len(world.enemy_list):
                     enemy_type = world.enemy_list[world.spawned_enemies]
@@ -597,7 +584,7 @@ while run:
                     enemy_group.add(enemy)
                     world.spawned_enemies += 1
                     last_enemy_spawn = pg.time.get_ticks()
-
+        #sfx manager to prevent annoying spamming sfx
         for unit_type in sfx_data:
             data = sfx_data[unit_type]
             if data[1] is True:
@@ -618,17 +605,13 @@ while run:
                 world.level_group_wave = 0
                 world.tree_level += 1
                 choice = None
-                # if world.level_group < c.TOTAL_GROUPS-1:
-                #     world.level_group_length = len(world.spawn_data[world.level_group])
             else:
                 world.process_enemies()
-            if world.level > c.TOTAL_LEVELS-1:
+            if world.level > c.TOTAL_LEVELS-1: #final level complete, "continue" applies to the main game while loop to move to end-game screen
                 continue
-            
             last_enemy_spawn = pg.time.get_ticks()
             world.reset_level()
             level_started = False
-            # world.process_enemies()
 
         for i in range(9):
             if buy_turret_buttons[i].draw(screen):
@@ -637,7 +620,7 @@ while run:
                     if k != i:
                         placing_turrets[k][0] = False
 
-        for j in range(9):
+        for j in range(9): #turret placing UI
             if placing_turrets[j][0] == True:
                 for i in range(len(world.tile_map)): #linear search to draw highlight boxes
                     if world.tile_map[i] == 25:
@@ -646,7 +629,6 @@ while run:
                         buildable_space_rect = buildable_space.get_rect()
                         buildable_space_rect.center = (x,y)
                         screen.blit(buildable_space, buildable_space_rect)
-
                 cursor_rect = cursor_turrets[j][0].get_rect()
                 cursor_position = pg.mouse.get_pos()
                 cursor_rect.center = ((cursor_position[0]//c.TILE_SIZE + .5) * c.TILE_SIZE, (cursor_position[1]//c.TILE_SIZE + .5) * c.TILE_SIZE) #snap to grid
@@ -655,16 +637,18 @@ while run:
                     screen.blit(cursor_turrets[j][0], cursor_rect)
                 if cancel_button.draw(screen):
                     placing_turrets[j][0] = False
-
+        #upgrading and selling turrets
         if selected_turret:
             if selected_turret.upgrade_level < selected_turret.upgrade_limit:
                 if upgrade_turret_button.draw(screen):
+                    print("button Pressed")
                     if world.money >= selected_turret.upgrade_cost:
+                        print("eneough money!")
                         selected_turret.upgrade(world)
             if sell_turret_button.draw(screen):
                 selected_turret.sell(world)
                 selected_turret = None
-        
+        #volume control
         if vol_up_button.draw(screen):
             if volume < 2:
                 volume *= 100
@@ -677,35 +661,23 @@ while run:
                 volume -= 10
                 volume /= 100
                 update_volume()
-        
+        #hiscores UI
         if hiscores_button.draw(screen):
-            display_hiscores(world)
-        
-        # if enter_na
-
+            display_hiscores()
+    #game over
     else:
         pg.draw.rect(screen, "dodgerblue", (200, 200, 400, 200), border_radius = 30)
         if game_outcome == -1:
             draw_text("GAME OVER", large_font, "grey0", 310, 230)
         elif game_outcome == 1:
             draw_text("You WIN", large_font, "grey0", 310, 230)
-        if restart_button.draw(screen):
+        if restart_button.draw(screen): # rests level is restart button pressed
             save_hiscore()
-            with open('data\\scores.txt', "r") as file:
+            with open('data\\scores.txt', "r") as file: #update hiscores UI, players score will appear if it achieved top 10
                 hiscores = []
                 for line in file:
                     score, name = line.strip().split(", ")
                     hiscores.append((int(score), name))
-            # with open('data\\scores.txt', "r") as file:
-            #     scores = [int(line.strip()) for line in file]
-            # scores.append(world.score)
-            # scores.sort()
-            # scores.pop(0)
-            # with open('data\\scores.txt', "w") as file:
-            #     for score in scores:
-            #         file.write(f"{score}\n")
-            # with open('data\\scores.txt', 'a') as file:
-            #     file.write(str(world.score)+"\n")
             world.score = 0
             game_over = False
             level_started = False
@@ -721,9 +693,9 @@ while run:
             turret_group.empty()
             projectile_group.empty()
 
-    if 1 == random.randint(0,40000):
-        enemy67 = Wandering_Enemy(("reaper", 0), wandering_waypoints, world)
-        enemy_group.add(enemy67)
+    if 1 == random.randint(0,40000): #user of graph
+        reaper = Wandering_Enemy(("reaper", 0), wandering_waypoints, world)
+        enemy_group.add(reaper)
         spawn_wandering_enemy_timer = time.time()
 
     # event handlers
@@ -739,35 +711,26 @@ while run:
                 selected_turret = clear_turret_selection()
                 selected_enemy = clear_enemy_selection()
                 if any(i[0] for i in placing_turrets):
-                    # if world.money >= c.BUY_COST:
                     create_turret(mouse_position, turret_group)
                 else:
                     selected_turret = select_turret(mouse_position)
-                    selected_enemy = select_enemy(mouse_position) #########need to create this function
+                    selected_enemy = select_enemy(mouse_position)
         #mouse click (right)
-        if event.type == pg.MOUSEBUTTONDOWN and event.button == 3: # clear turret placements and turret selection
+        if event.type == pg.MOUSEBUTTONDOWN and event.button == 3: # clear turret placement bools, turret selection, or enemy selection
             selected_turret = clear_turret_selection()
-            selected_enemy = clear_enemy_selection()################can i use this funciton??
+            selected_enemy = clear_enemy_selection()
             for i in range(9):
                 placing_turrets[i][0] = False
         #background music check
         if event.type == AUDIO_TRACK_END:
             current_track_index = next_track(current_track_index)
-        #control-z / undo a number of tower builds and/or upgrades equal to the corresponding value in constants.py
         keys = pg.key.get_pressed()
-        # if keys[pg.K_z] and keys[pg.K_LCTRL]:
-        #     try:
-        #         func = world.undo_deck.pop()
-        #         func()
-        #         selected_turret = clear_turret_selection()
-        #     except:
-        #         pass
         if event.type == pg.KEYDOWN and not typing:
             if event.key == pg.K_m:
-                world.money += 1000
+                world.money += 1000 #cheat
             if event.key == pg.K_h:
-                world.hp += 10
-            if keys[pg.K_z] and keys[pg.K_LCTRL]:
+                world.hp += 10 #cheat
+            if keys[pg.K_z] and keys[pg.K_LCTRL]: #control-z / undo a number of tower builds and/or upgrades equal to the corresponding value in constants.py - deque implementation
                 try:
                     func = world.undo_deck.pop()
                     func()
@@ -776,7 +739,7 @@ while run:
                     pass
             if event.key == pg.K_RETURN:
                 typing = True
-        elif event.type == pg.KEYDOWN and typing:
+        elif event.type == pg.KEYDOWN and typing: # username update
             if event.unicode.isalnum():
                 temp_user_name += event.unicode
             elif event.key == pg.K_BACKSPACE:
@@ -787,7 +750,6 @@ while run:
                 typing = False
     #update display
     pg.display.flip()
-# with open('data\\scores.txt', 'a') as file:
-#     file.write(str(world.score)+"\n")
+#save highscore upon close
 save_hiscore()
 pg.quit()

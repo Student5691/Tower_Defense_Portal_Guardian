@@ -1,2 +1,1 @@
-Fast forward button/functionality : spawn timer (distance between enemies at press and release) is off
-requires pip install binarytree
+Requires pip install binarytree

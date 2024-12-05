@@ -17,7 +17,7 @@ class Enemy(pg.sprite.Sprite):
         self.waypoints = _waypoints
         self.position = Vector2(self.waypoints[0])
         self.target_waypoint = 1
-        self.base_hp = ENEMY_DATA[self.type[0]][self.type[1]]["hp"]**c.DIFFICULTY_HP_POWER(self.world.level)
+        self.base_hp = ENEMY_DATA[self.type[0]][self.type[1]]["hp"]**c.DIFFICULTY_HP_POWER(self.world.level) #level scaling calculations
         self.hp = self.base_hp
         if ENEMY_DATA[self.type[0]][self.type[1]]["speed"] + c.DIFFICULTY_SPEED_ADD(self.world.level) < c.ENEMY_SPEED_CAP:
             self.base_speed = ENEMY_DATA[self.type[0]][self.type[1]]["speed"] + c.DIFFICULTY_SPEED_ADD(self.world.level)
@@ -31,7 +31,7 @@ class Enemy(pg.sprite.Sprite):
             self.armor = c.ENEMY_ARMOR_CAP
         self.resistance = ENEMY_DATA[self.type[0]][self.type[1]]["dmg_resist"]
         self.vulnerability = ENEMY_DATA[self.type[0]][self.type[1]]["dmg_vulnerability"]
-        self.effect = []
+        self.effect = [] #list
         self.effect_data = []
         self.dmg_over_time_counter = 0
         self.angle = 0
@@ -54,12 +54,11 @@ class Enemy(pg.sprite.Sprite):
             self.target = Vector2(self.waypoints[self.target_waypoint])
             self.movement = self.target - self.position
         else:
-            #enemy has reach the final waypoint
+            #enemy has reached the final waypoint
             self.kill()
             world.missed_enemies += 1
             world.hp -= 1
-
-        #calc distance to target
+        #calc current distance to target waypoint
         distance = self.movement.length()
         if distance >= self.speed * world.game_speed:
             if self.movement.length() != 0:
@@ -100,8 +99,7 @@ class Enemy(pg.sprite.Sprite):
         for effect in self.effect_data:
             if effect[0] == "dmg_over_time":
                 if pg.time.get_ticks() > effect[1] + c.EFFECTS["dmg_over_time"]["interval_time"]*self.dmg_over_time_counter:
-                    # self.hp -= c.EFFECTS["dmg_over_time"]["dmg_mult"]*effect[2].damage
-                    self.hp -= c.EFFECTS["dmg_over_time"]["dmg_mult"]*effect[2].damage**((effect[2].level+1)/2)
+                    self.hp -= c.EFFECTS["dmg_over_time"]["dmg_mult"]*effect[2].damage**(1+(effect[2].level+1)/6)
                     self.dmg_over_time_counter += 1
                 if pg.time.get_ticks() > effect[1] + c.EFFECTS["dmg_over_time"]["duration"]:
                     self.effect.remove(effect[0])
@@ -130,22 +128,20 @@ class Enemy(pg.sprite.Sprite):
                 print("error in implement_effect() of Enemy class from tower: ", effect[2].firing_turret.sfx, effect[0])
 
 
-class Wandering_Enemy(Enemy):
+class Wandering_Enemy(Enemy): #child class of Enemy
     def __init__(self, _enemy_type, _waypoints, _world):
         super().__init__( _enemy_type, _waypoints, _world)
-        self.create_waypoint_graph()
+        self.create_waypoint_graph() # creation of graph data structure
         self.position = Vector2(self.waypoints[random.randint(0, len(self.waypoints)-1)])
         self.position_key = self.waypoints[0]
         self.select_new_waypoint = True
-        # self.base_hp = 20 * (_world.level+1)
-        # self.hp = self.base_hp
 
     def update(self, world):
         super().update(world)
         self.self_destruct()
 
     def move(self, world):
-        #define a target waypoint
+        #define a target waypoint randomly from the graph's adjacency list given current waypoint 
         if self.select_new_waypoint:
             target_options = self.adj_list[self.position_key]
             n = len(target_options)
@@ -153,9 +149,7 @@ class Wandering_Enemy(Enemy):
             self.target_key = target_options[target]
             self.select_new_waypoint = False
             self.target = Vector2(target_options[target])
-        
         self.movement = self.target - self.position
-
         #calc distance to target
         distance = self.movement.length()
         if distance >= self.speed * world.game_speed:
@@ -170,12 +164,12 @@ class Wandering_Enemy(Enemy):
 
     def create_waypoint_graph(self):
         random.shuffle(self.waypoints)
-        self.adj_list = {}
+        self.adj_list = {} #initialize adjacency list
         for i in self.waypoints:
             self.adj_list[i] = []
         n = len(self.waypoints)
         max_connections = n//2
-        for j in self.waypoints:
+        for j in self.waypoints: #randomly create graph so that it is new each game iteration
             num_of_connections = random.randint(3, max_connections)
             connections = random.sample([x for x in self.waypoints if x != j], num_of_connections)
             self.adj_list[j] = connections
@@ -186,6 +180,6 @@ class Wandering_Enemy(Enemy):
             world.money += int(self.value * (1+(world.level/c.TOTAL_LEVELS)*2))
             world.score += int(self.value * (1+(world.level/c.TOTAL_LEVELS)*2))
     
-    def self_destruct(self):
+    def self_destruct(self): # if not destroyed after 30 seconds, self destruct
         if self.spawn_time < time.time() - 30:
             self.kill()

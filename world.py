@@ -4,12 +4,12 @@ from collections import deque
 from binarytree import Node
 
 import constants as c
-from enemy_data import ENEMY_SPAWN_DATA, ENEMY_DATA
+from enemy_data import ENEMY_SPAWN_DATA
 
 class World():
     def __init__(self, data, map_image):
-        self.tree = self.generate_tree(0, 7, [])
-        # print(self.tree)
+        self.tree = self.generate_tree(0, 7, []) #tree
+        print(self.tree)
         self.tree_level = 0
         self.currentNode = self.tree
         self.leftNode = self.tree.left
@@ -22,7 +22,7 @@ class World():
         self.level_group_length = len(self.spawn_data[self.level_group])
         self.level_group_wave = 0
         self.game_speed = 1
-        self.enemy_list = []
+        self.enemy_list = [] #list
         self.hp = c.PLAYER_HP
         self.money = c.PLAYER_MONEY
 
@@ -35,48 +35,9 @@ class World():
         self.missed_enemies = 0
         self.score = 0
 
-        # self.sfx_data = {
-        #     #[number of proj sfx activations, allowed to play sfx?, tick delay before allowing more sfx, num of ticks when sfx play authorization revoked]
-        #     "archer": [0, True, 10000, 0],
-        #     "crossbowman": [0, True, 1000, 0],
-        #     "melee": [0, True, 1000, 0],
-        #     "siege": [0, True, 1000, 0],
-        #     "sniper": [0, True, 1000, 0],
-        #     "fire": [0, True, 1000, 0],
-        #     "frost": [0, True, 1000, 0],
-        #     "poison": [0, True, 1000, 0],
-        #     "electric": [0, True, 1000, 0]
-        # }
-        # self.sfx_status = {
-        #     "archer": True,
-        #     "crossbowman": True,
-        #     "melee": True,
-        #     "siege": True,
-        #     "sniper": True,
-        #     "fire": True,
-        #     "frost": True,
-        #     "poison": True,
-        #     "electric": True
-        # }
+        self.undo_deck = deque(maxlen=c.UNDO_MAX) #deque initialization, items added beyond 10 result in a FIFO pop, i.e. the first item added is popped without being returned/executed
 
-        self.undo_deck = deque(maxlen=c.UNDO_MAX)
-
-    # def sfx_manager(self):
-    #     for unit_type in self.sfx_data:
-    #         data = self.sfx_data[unit_type]
-    #         if data[0] > 2:
-    #             if data[1] is True:
-    #                 data[3] = pg.time.get_ticks()
-    #             data[1] = False
-    #         # print(pg.time.get_ticks() - data[3], " > ", data[2])
-    #         if pg.time.get_ticks() - data[3] > data[2]:
-    #             data[0] = 0
-    #             data[1] = True
-    #             # data[3] = 0
-    #             # print("TRUE")
-    #         # print(data, pg.time.get_ticks() - data[2])
-
-    def process_data(self):
+    def process_data(self): #establish waypoints
         x_offset = self.level_data["layers"][1]["objects"][0]["x"]
         y_offset = self.level_data["layers"][1]["objects"][0]["y"]
         coordinates = self.level_data["layers"][1]["objects"][0]["polyline"]
@@ -86,7 +47,7 @@ class World():
             self.way_points.append((x, y))
         self.tile_map = self.level_data["layers"][0]["data"]
 
-    def process_enemies(self):
+    def process_enemies(self): #establish next wave of enemies
         self.enemy_list = []
         self.enemy_category = c.ENEMY_CATEGORIES[self.level_group]
         enemies = ENEMY_SPAWN_DATA[self.level_group][self.level_group_wave]
@@ -105,10 +66,11 @@ class World():
         self.missed_enemies = 0
         self.level_group = self.currentNode.value
 
-    def draw(self, surface):
+    def draw(self, surface): #draw game map
         surface.blit(self.image, (0,0))
     
-    def generate_tree(self, current_level, max_level, used_values):
+    #binary tree: handles which category of enemy will be fought next. Player choose between the two tree options after a set of waves is complete
+    def generate_tree(self, current_level, max_level, used_values): #tree data structure, create tree for each game iteration, randomly assigning values to nodes
         if current_level == max_level:
             return None
         remaining_values = [i for i in range(max_level) if i not in used_values]
@@ -118,6 +80,7 @@ class World():
         node.right = self.generate_tree(current_level + 1, max_level, used_values + [value])
         return node
 
+    #determine next enemy category based on value of current node
     def traverse_tree(self, choice):
         if self.tree_level < c.TOTAL_GROUPS-1:
             # self.tree_level += 1

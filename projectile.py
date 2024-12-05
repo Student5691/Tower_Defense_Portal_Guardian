@@ -1,11 +1,8 @@
 import pygame as pg
 from pygame.math import Vector2
 import math
-import random
-import time
 
 import constants as c
-from enemy_data import ENEMY_DATA
 
 class Projectile(pg.sprite.Sprite):
     def __init__(self, _firing_turret, _target_enemy, _distance):
@@ -40,7 +37,6 @@ class Projectile(pg.sprite.Sprite):
             if self.distance != 0:
                 if self.movement.length() != 0:
                     self.position += self.movement.normalize() * self.distance
-                # self.target_enemy.hp -= self.damage
                 self.apply_hit()
                 self.kill()
         self.rect.center = self.position
@@ -57,28 +53,3 @@ class Projectile(pg.sprite.Sprite):
             if effect not in self.target_enemy.effect:
                 self.target_enemy.effect.append(effect)
                 self.target_enemy.effect_data.append((effect, pg.time.get_ticks(), self))
-
-    # def apply_hit(self):
-    #     if self.target_enemy.resistance == self.damage_type:
-    #         self.damage = self.damage*c.RESISTANCE_MULT
-    #     elif self.target_enemy.vulnerability == self.damage_type:
-    #         self.damage = self.damage*c.VULNERABILITY_MULT
-    #     self.target_enemy.hp -= (self.damage-(self.target_enemy.armor*self.damage))
-    #     for effect in self.effect:
-    #         if effect not in self.target_enemy.effect:
-    #             self.target_enemy.effect.append(effect)
-    #             self.target_enemy.effect_data.append((effect, pg.time.get_ticks(), self))
-
-    # def move(self, world):
-    #     self.target = Vector2(self.target_enemy.rect.center)
-    #     self.movement = self.target - self.position
-    #     self.distance = self.movement.length()
-    #     if self.distance >= self.speed * world.game_speed:
-    #         self.position += self.movement.normalize() * self.speed * world.game_speed
-    #     else:
-    #         if self.distance != 0:
-    #             self.position += self.movement.normalize() * self.distance
-    #             # self.target_enemy.hp -= self.damage
-    #             self.apply_hit()
-    #             self.kill()
-    #     self.rect.center = self.position

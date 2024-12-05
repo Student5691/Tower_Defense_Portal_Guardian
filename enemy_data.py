@@ -1,6 +1,8 @@
-#Index of the outer list corresponds to a specific enemy category as laid out in constants.py.
-#Index of the inner lists is the wave, and index of the innermost list corresponds to the specific enemy variant.
-ENEMY_SPAWN_DATA = [
+#Index of the outer list corresponds to a specific enemy category as laid out in constants.py (i.e. animals or draconic).
+#Index of the center lists are the wave number for that category.
+#Index of the innermost lists corresponds to the specific enemy variant (i.e. Large Snake or Living Armor).
+
+ENEMY_SPAWN_DATA = [ #list of lists of lists
     [
         [20], [20, 5], [15, 10, 5], [15, 10, 10, 5]
     ],
@@ -24,7 +26,7 @@ ENEMY_SPAWN_DATA = [
     ]
 ]
 
-ENEMY_DATA = {
+ENEMY_DATA = { #hash table of lists of hash tables
     "animal": [
         {
             "name": "Large Snake",
@@ -333,8 +335,8 @@ ENEMY_DATA = {
     ]
 }
 
+#calculation to dynamically change enemy "values" key to reflect a number based on stats, without this function, all values default to 2 gold per kill
 values = []
-
 def calculate_value(ENEMY_DATA, enemy_counts): # values can be hard coded or this function can calculate values based on hp, speed and armor
     total = 0
     count0 = 0
@@ -354,6 +356,7 @@ def calculate_value(ENEMY_DATA, enemy_counts): # values can be hard coded or thi
             count0 += 1
     return total
 
+#for analysis, no effect on gameplay. shows how many of each type of enemy will be spawn and the total BASE gold value possible (does not account for value scaling with level as that varies based on player choice)
 def consolidate_enemy_totals():
     enemies = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     for i in range(len(ENEMY_SPAWN_DATA)):
