@@ -56,7 +56,7 @@ melee_sfx.set_volume(.175*volume)
 siege_sfx = pg.mixer.Sound(TURRET_DATA["siege"][0]["projectile_sfx"])
 siege_sfx.set_volume(.2*volume)
 sniper_sfx = pg.mixer.Sound(TURRET_DATA["sniper"][0]["projectile_sfx"])
-sniper_sfx.set_volume(.15*volume)
+sniper_sfx.set_volume(.1*volume)
 fire_sfx = pg.mixer.Sound(TURRET_DATA["fire"][0]["projectile_sfx"])
 fire_sfx.set_volume(.15*volume)
 frost_sfx = pg.mixer.Sound(TURRET_DATA["frost"][0]["projectile_sfx"])
@@ -64,7 +64,7 @@ frost_sfx.set_volume(.2*volume)
 poison_sfx = pg.mixer.Sound(TURRET_DATA["poison"][0]["projectile_sfx"])
 poison_sfx.set_volume(.3*volume)
 electric_sfx = pg.mixer.Sound(TURRET_DATA["electric"][0]["projectile_sfx"])
-electric_sfx.set_volume(.25*volume)
+electric_sfx.set_volume(.175*volume)
 
 sfx_data = { #hash and list
     #[specific sfx, play sound this tick?, seconds till next sfx iteration may be played, time when sfx was played for calculating next available sfx, is the sfx on cooldown?]
@@ -72,11 +72,11 @@ sfx_data = { #hash and list
     "crossbowman": [crossbowman_sfx, False, TURRET_DATA["crossbowman"][0]["cooldown"]/2000, 0, False],
     "melee": [melee_sfx, False, TURRET_DATA["melee"][0]["cooldown"]/2000, 0, False],
     "siege": [siege_sfx, False, TURRET_DATA["siege"][0]["cooldown"]/2000, 0, False],
-    "sniper": [sniper_sfx, False, TURRET_DATA["sniper"][0]["cooldown"]/2000, 0, False],
+    "sniper": [sniper_sfx, False, TURRET_DATA["sniper"][0]["cooldown"]/1500, 0, False],
     "fire": [fire_sfx, False, TURRET_DATA["fire"][0]["cooldown"]/2000, 0, False],
     "frost": [frost_sfx, False, TURRET_DATA["frost"][0]["cooldown"]/2000, 0, False],
     "poison": [poison_sfx, False, TURRET_DATA["poison"][0]["cooldown"]/2000, 0, False],
-    "electric": [electric_sfx, False, TURRET_DATA["electric"][0]["cooldown"]/2000, 0, False]
+    "electric": [electric_sfx, False, TURRET_DATA["electric"][0]["cooldown"]/1000, 0, False]
 }
 
 #map
