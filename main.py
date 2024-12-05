@@ -25,10 +25,20 @@ pg.display.set_caption("Tower Defense")
 with open('levels\\level0.tmj') as file:
     world_data = json.load(file)
 
+#load hiscores
+with open('data\\scores.txt', "r") as file:
+    hiscores = []
+    for line in file:
+        score, name = line.strip().split(", ")
+        hiscores.append((int(score), name))
+
+# print(pg.color.THECOLORS.keys())
+
 #game variables
 game_over = False
 game_outcome = 0 # -1 is a loss and 1 is a win
 level_started = False
+volume = 1
 spawn_cooldown = 800
 placing_turrets = [[False, "archer"], [False, "crossbowman"], [False, "melee"], [False, "siege"], [False, "sniper"], [False, "fire"], [False, "frost"], [False, "poison"], [False, "electric"]]
 selected_turret = None
@@ -36,26 +46,26 @@ selected_enemy = None
 last_enemy_spawn = pg.time.get_ticks()
 choice = None # tree path choice/enemy select
 enemy_categories = ['Animals', 'Constructs', 'Draconic', 'Goblins', 'Humanoid', 'Monsters', 'Undead']
-
+user_name = "Anonymous"
 
 archer_sfx = pg.mixer.Sound(TURRET_DATA["archer"][0]["projectile_sfx"])
-archer_sfx.set_volume(.2)
+archer_sfx.set_volume(.2*volume)
 crossbowman_sfx = pg.mixer.Sound(TURRET_DATA["crossbowman"][0]["projectile_sfx"])
-crossbowman_sfx.set_volume(.2)
+crossbowman_sfx.set_volume(.2*volume)
 melee_sfx = pg.mixer.Sound(TURRET_DATA["melee"][0]["projectile_sfx"])
-melee_sfx.set_volume(.175)
+melee_sfx.set_volume(.175*volume)
 siege_sfx = pg.mixer.Sound(TURRET_DATA["siege"][0]["projectile_sfx"])
-siege_sfx.set_volume(.2)
+siege_sfx.set_volume(.2*volume)
 sniper_sfx = pg.mixer.Sound(TURRET_DATA["sniper"][0]["projectile_sfx"])
-sniper_sfx.set_volume(.15)
+sniper_sfx.set_volume(.15*volume)
 fire_sfx = pg.mixer.Sound(TURRET_DATA["fire"][0]["projectile_sfx"])
-fire_sfx.set_volume(.15)
+fire_sfx.set_volume(.15*volume)
 frost_sfx = pg.mixer.Sound(TURRET_DATA["frost"][0]["projectile_sfx"])
-frost_sfx.set_volume(.2)
+frost_sfx.set_volume(.2*volume)
 poison_sfx = pg.mixer.Sound(TURRET_DATA["poison"][0]["projectile_sfx"])
-poison_sfx.set_volume(.2)
+poison_sfx.set_volume(.3*volume)
 electric_sfx = pg.mixer.Sound(TURRET_DATA["electric"][0]["projectile_sfx"])
-electric_sfx.set_volume(.25)
+electric_sfx.set_volume(.25*volume)
 
 
 sfx_data = {
@@ -81,6 +91,17 @@ sfx_data = {
 map_image = pg.image.load('levels\\level0.png').convert_alpha()
 #buildable spaces
 buildable_space = pg.image.load('assets\\buildable_space.png').convert_alpha()
+
+#world
+world = World(world_data, map_image)
+world.process_data()
+world.process_enemies()
+
+#create groups
+enemy_group = pg.sprite.Group()
+turret_group = pg.sprite.Group()
+projectile_group = pg.sprite.Group()
+button_turret_group = pg.sprite.Group()
 
 #individual turret images for mouse cursor when placing turrets
 cursor_turrets = []
@@ -113,6 +134,15 @@ for i in range(9):
     range_ring.set_alpha(100)
     cursor_turrets.append([turret_image, range_ring, turret_range])
 
+#UI details
+coin_image = pg.image.load('assets\\coin.png').convert_alpha()
+heart_image = pg.image.load('assets\\heart.png').convert_alpha()
+
+tiny_font = pg.font.SysFont("Consolas", 14, bold = True)
+small_font = pg.font.SysFont("Consolas", 16, bold = True)
+med_font = pg.font.SysFont("Consolas", 22, bold = True)
+large_font = pg.font.SysFont("Consolas", 36)
+
 #button images
 buy_turret_images = []
 for i in range(9):
@@ -125,14 +155,29 @@ restart_image = pg.image.load('assets\\buttons\\restart.png').convert_alpha()
 fast_forward_image = pg.image.load('assets\\buttons\\fast_forward.png').convert_alpha()
 left_choice_image = pg.image.load('assets\\buttons\\left.png').convert_alpha()
 right_choice_image = pg.image.load('assets\\buttons\\right.png').convert_alpha()
+vol_up_image = pg.image.load('assets\\buttons\\vol_up.png').convert_alpha()
+vol_down_image = pg.image.load('assets\\buttons\\vol_down.png').convert_alpha()
+vol_icon_image = pg.image.load('assets\\buttons\\vol_icon.png').convert_alpha()
+hiscores_image = pg.image.load('assets\\buttons\\hiscores.png').convert_alpha()
 
-#UI details
-coin_image = pg.image.load('assets\\coin.png').convert_alpha()
-heart_image = pg.image.load('assets\\heart.png').convert_alpha()
-
-small_font = pg.font.SysFont("Consolas", 16, bold = True)
-med_font = pg.font.SysFont("Consolas", 22, bold = True)
-large_font = pg.font.SysFont("Consolas", 36)
+#create buttons
+buy_turret_buttons = []
+for i in range(len(buy_turret_images)):
+    row = i % 4
+    col = i // 4
+    buy_turret_buttons.append(Button(c.SCREEN_WIDTH + 2 + (2+c.TILE_SIZE)*row, 550 + 2 + (2+c.TILE_SIZE)*col, buy_turret_images[i][0], True, buy_turret_images[i][1]))
+    button_turret_group.add(buy_turret_buttons[i])
+cancel_button = Button(c.SCREEN_WIDTH + 203, 686, cancel_image, True)
+upgrade_turret_button = Button(c.SCREEN_WIDTH + 215, 300, upgrade_turret_image, True)
+sell_turret_button = Button(c.SCREEN_WIDTH + 200, 202, sell_turret_image, True)
+begin_button = Button(c.SCREEN_WIDTH + 179, 2, begin_image, True)
+restart_button = Button(300, 300, restart_image, True)
+fast_forward_button = Button(c.SCREEN_WIDTH + 179, 79, fast_forward_image, False)
+left_button = Button(c.SCREEN_WIDTH + 5, 145, left_choice_image, True)
+right_button = Button(c.SCREEN_WIDTH + 150, 145, right_choice_image, True)
+vol_up_button = Button(c.SCREEN_WIDTH + 225, 870, vol_up_image, True)
+vol_down_button = Button(c.SCREEN_WIDTH + 225, 930, vol_down_image, True)
+hiscores_button = Button(c.SCREEN_WIDTH + 5, 920, hiscores_image, False) 
 
 def draw_text(text, font, text_color, x, y):
     image = font.render(text, True, text_color)
@@ -153,6 +198,8 @@ def display_data():
         row = i % 4
         col = i // 4
         pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH + 2 + (2 + c.TILE_SIZE)*row, 550 + 2 + (2 + c.TILE_SIZE)*col, 65, 65), 2)
+    screen.blit(vol_icon_image, (c.SCREEN_WIDTH + 165, 895))
+    draw_text(str(int(volume*50)), tiny_font, "grey100", c.SCREEN_WIDTH + 232, 910)
 
 def update_info_panel(item):
     if item is None:
@@ -386,8 +433,49 @@ def next_track(index):
         return index + 1
     return 0
 
-def process_sfx():
-    pass
+def update_volume():
+    archer_sfx.set_volume(.2*volume)
+    crossbowman_sfx.set_volume(.2*volume)
+    melee_sfx.set_volume(.175*volume)
+    siege_sfx.set_volume(.2*volume)
+    sniper_sfx.set_volume(.15*volume)
+    fire_sfx.set_volume(.15*volume)
+    frost_sfx.set_volume(.2*volume)
+    poison_sfx.set_volume(.2*volume)
+    electric_sfx.set_volume(.25*volume)
+    pg.mixer.music.set_volume(0.2*volume)
+
+def save_hiscore():
+    with open('data\\scores.txt', "r") as file:
+        scores = []
+        for line in file:
+            score, name = line.strip().split(", ")
+            scores.append((int(score), name))
+    scores.append((world.score, user_name))
+    scores.sort(key=lambda x:x[0], reverse=True)
+    scores = scores[:10]
+    with open('data\\scores.txt', "w") as file:
+        for score, name in scores:
+            file.write(f"{score}, {name}\n")
+
+def display_hiscores(_world):
+    dimension_x = 295
+    dimension_y = 305
+    top_left_corner_x = c.SCREEN_WIDTH-dimension_x
+    top_left_corner_y = c.SCREEN_HEIGHT-dimension_y
+    pg.draw.rect(screen, "black", (top_left_corner_x, top_left_corner_y, dimension_x, dimension_y), border_radius = 30)
+    draw_text("Leader Board", large_font, "grey100", top_left_corner_x+15, top_left_corner_y+15)
+    for i in range(len(hiscores)):
+        if i == 0:
+            color = (255, 197, 7) # gold
+        elif i == 1:
+            color = (208, 211, 226) # silver
+        elif i == 2:
+            color = (197, 90, 0) # bronze
+        else:
+            color = "grey40"
+        draw_text(str(hiscores[i][0]), med_font, color, top_left_corner_x + 15, top_left_corner_y+60+i*23)
+        draw_text(hiscores[i][1], med_font, color, top_left_corner_x + 120, top_left_corner_y+60+i*23)
 
 #background music, multiple tracks
 audio_path = r"assets\\audio\\bgMusic\\"
@@ -397,7 +485,7 @@ for i in range(10):
 random.shuffle(background_audio_playlist)
 AUDIO_TRACK_END = pg.USEREVENT + 1
 pg.mixer.music.set_endevent(AUDIO_TRACK_END)
-pg.mixer.music.set_volume(0.1)
+pg.mixer.music.set_volume(0.2*volume)
 current_track_index = next_track(0) #begin first track
 
 wandering_waypoints_data = world_data["layers"][2]["objects"][0]
@@ -415,22 +503,6 @@ enemy_group = pg.sprite.Group()
 turret_group = pg.sprite.Group()
 projectile_group = pg.sprite.Group()
 button_turret_group = pg.sprite.Group()
-
-#create buttons
-buy_turret_buttons = []
-for i in range(len(buy_turret_images)):
-    row = i % 4
-    col = i // 4
-    buy_turret_buttons.append(Button(c.SCREEN_WIDTH + 2 + (2+c.TILE_SIZE)*row, 550 + 2 + (2+c.TILE_SIZE)*col, buy_turret_images[i][0], True, buy_turret_images[i][1]))
-    button_turret_group.add(buy_turret_buttons[i])
-cancel_button = Button(c.SCREEN_WIDTH + 203, 686, cancel_image, True)
-upgrade_turret_button = Button(c.SCREEN_WIDTH + 215, 300, upgrade_turret_image, True)
-sell_turret_button = Button(c.SCREEN_WIDTH + 200, 202, sell_turret_image, True)
-begin_button = Button(c.SCREEN_WIDTH + 179, 2, begin_image, True)
-restart_button = Button(300, 300, restart_image, True)
-fast_forward_button = Button(c.SCREEN_WIDTH + 179, 79, fast_forward_image, False)
-left_button = Button(c.SCREEN_WIDTH + 5, 145, left_choice_image, True)
-right_button = Button(c.SCREEN_WIDTH + 150, 145, right_choice_image, True)
 
 run = True # should the game continue running?
 while run:
@@ -584,6 +656,23 @@ while run:
             if sell_turret_button.draw(screen):
                 selected_turret.sell(world)
                 selected_turret = None
+        
+        if vol_up_button.draw(screen):
+            if volume < 2:
+                volume *= 100
+                volume += 10
+                volume /= 100
+                update_volume()
+        if vol_down_button.draw(screen):
+            if volume > 0:
+                volume *= 100
+                volume -= 10
+                volume /= 100
+                update_volume()
+        
+        if hiscores_button.draw(screen):
+            display_hiscores(world)
+
     else:
         pg.draw.rect(screen, "dodgerblue", (200, 200, 400, 200), border_radius = 30)
         if game_outcome == -1:
@@ -591,6 +680,15 @@ while run:
         elif game_outcome == 1:
             draw_text("You WIN", large_font, "grey0", 310, 230)
         if restart_button.draw(screen):
+            save_hiscore()
+            # with open('data\\scores.txt', "r") as file:
+            #     scores = [int(line.strip()) for line in file]
+            # scores.append(world.score)
+            # scores.sort()
+            # scores.pop(0)
+            # with open('data\\scores.txt', "w") as file:
+            #     for score in scores:
+            #         file.write(f"{score}\n")
             # with open('data\\scores.txt', 'a') as file:
             #     file.write(str(world.score)+"\n")
             world.score = 0
@@ -666,4 +764,5 @@ while run:
     pg.display.flip()
 # with open('data\\scores.txt', 'a') as file:
 #     file.write(str(world.score)+"\n")
+save_hiscore()
 pg.quit()

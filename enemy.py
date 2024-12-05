@@ -99,7 +99,7 @@ class Enemy(pg.sprite.Sprite):
             if effect[0] == "dmg_over_time":
                 if pg.time.get_ticks() > effect[1] + c.EFFECTS["dmg_over_time"]["interval_time"]*self.dmg_over_time_counter:
                     # self.hp -= c.EFFECTS["dmg_over_time"]["dmg_mult"]*effect[2].damage
-                    self.hp -= c.EFFECTS["dmg_over_time"]["dmg_mult"]*(effect[2].level+1)*effect[2].damage
+                    self.hp -= c.EFFECTS["dmg_over_time"]["dmg_mult"]*effect[2].damage**((effect[2].level+1)/2)
                     self.dmg_over_time_counter += 1
                 if pg.time.get_ticks() > effect[1] + c.EFFECTS["dmg_over_time"]["duration"]:
                     self.effect.remove(effect[0])
