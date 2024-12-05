@@ -47,6 +47,8 @@ last_enemy_spawn = pg.time.get_ticks()
 choice = None # tree path choice/enemy select
 enemy_categories = ['Animals', 'Constructs', 'Draconic', 'Goblins', 'Humanoid', 'Monsters', 'Undead']
 user_name = "Anonymous"
+temp_user_name = ''
+typing = False
 
 archer_sfx = pg.mixer.Sound(TURRET_DATA["archer"][0]["projectile_sfx"])
 archer_sfx.set_volume(.2*volume)
@@ -169,12 +171,12 @@ for i in range(len(buy_turret_images)):
     button_turret_group.add(buy_turret_buttons[i])
 cancel_button = Button(c.SCREEN_WIDTH + 203, 686, cancel_image, True)
 upgrade_turret_button = Button(c.SCREEN_WIDTH + 215, 300, upgrade_turret_image, True)
-sell_turret_button = Button(c.SCREEN_WIDTH + 200, 202, sell_turret_image, True)
+sell_turret_button = Button(c.SCREEN_WIDTH + 210, 205, sell_turret_image, True)
 begin_button = Button(c.SCREEN_WIDTH + 179, 2, begin_image, True)
 restart_button = Button(300, 300, restart_image, True)
 fast_forward_button = Button(c.SCREEN_WIDTH + 179, 79, fast_forward_image, False)
 left_button = Button(c.SCREEN_WIDTH + 5, 145, left_choice_image, True)
-right_button = Button(c.SCREEN_WIDTH + 150, 145, right_choice_image, True)
+right_button = Button(c.SCREEN_WIDTH + 145, 145, right_choice_image, True)
 vol_up_button = Button(c.SCREEN_WIDTH + 225, 870, vol_up_image, True)
 vol_down_button = Button(c.SCREEN_WIDTH + 225, 930, vol_down_image, True)
 hiscores_button = Button(c.SCREEN_WIDTH + 5, 920, hiscores_image, False) 
@@ -185,8 +187,8 @@ def draw_text(text, font, text_color, x, y):
 
 def display_data():
     pg.draw.rect(screen, "grey50", (c.SCREEN_WIDTH, 0, c.SIDE_PANEL, c.SCREEN_HEIGHT))
-    pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH, 0, c.SIDE_PANEL, 200), 2)
-    pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH, 198, c.SIDE_PANEL, 311), 2)
+    pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH, 0, c.SIDE_PANEL, 206), 2)
+    pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH, 173, c.SIDE_PANEL, 311), 2)
     draw_text("LEVEL: " + str(world.level+1),med_font, "grey100", c.SCREEN_WIDTH + 10, 10)
     screen.blit(heart_image, (c.SCREEN_WIDTH + 10, 35))
     draw_text(str(world.hp),med_font, "grey100", c.SCREEN_WIDTH + 40, 35)
@@ -199,7 +201,13 @@ def display_data():
         col = i // 4
         pg.draw.rect(screen, "grey0", (c.SCREEN_WIDTH + 2 + (2 + c.TILE_SIZE)*row, 550 + 2 + (2 + c.TILE_SIZE)*col, 65, 65), 2)
     screen.blit(vol_icon_image, (c.SCREEN_WIDTH + 165, 895))
-    draw_text(str(int(volume*50)), tiny_font, "grey100", c.SCREEN_WIDTH + 232, 910)
+    draw_text(str(int(volume*50)), tiny_font, "grey100", c.SCREEN_WIDTH + 234, 910)
+    draw_text("Player:", small_font, "grey100", c.SCREEN_WIDTH + 5, 182)
+    if typing:
+        pg.draw.rect(screen, "black", (c.SCREEN_WIDTH+73, 173, 195, 33))
+        draw_text(temp_user_name, med_font, "white", c.SCREEN_WIDTH + 75, 180)
+    else:
+        draw_text(user_name, med_font, "black", c.SCREEN_WIDTH + 75, 180)
 
 def update_info_panel(item):
     if item is None:
@@ -683,6 +691,11 @@ while run:
             draw_text("You WIN", large_font, "grey0", 310, 230)
         if restart_button.draw(screen):
             save_hiscore()
+            with open('data\\scores.txt', "r") as file:
+                hiscores = []
+                for line in file:
+                    score, name = line.strip().split(", ")
+                    hiscores.append((int(score), name))
             # with open('data\\scores.txt', "r") as file:
             #     scores = [int(line.strip()) for line in file]
             # scores.append(world.score)
@@ -749,7 +762,7 @@ while run:
         #         selected_turret = clear_turret_selection()
         #     except:
         #         pass
-        if event.type == pg.KEYDOWN:
+        if event.type == pg.KEYDOWN and not typing:
             if event.key == pg.K_m:
                 world.money += 1000
             if event.key == pg.K_h:
@@ -761,7 +774,17 @@ while run:
                     selected_turret = clear_turret_selection()
                 except:
                     pass
-
+            if event.key == pg.K_RETURN:
+                typing = True
+        elif event.type == pg.KEYDOWN and typing:
+            if event.unicode.isalnum():
+                temp_user_name += event.unicode
+            elif event.key == pg.K_BACKSPACE:
+                temp_user_name = temp_user_name[:-1]
+            elif event.key == pg.K_RETURN:
+                user_name = temp_user_name
+                temp_user_name = ''
+                typing = False
     #update display
     pg.display.flip()
 # with open('data\\scores.txt', 'a') as file:
