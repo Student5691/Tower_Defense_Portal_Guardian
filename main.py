@@ -672,6 +672,8 @@ while run:
         
         if hiscores_button.draw(screen):
             display_hiscores(world)
+        
+        # if enter_na
 
     else:
         pg.draw.rect(screen, "dodgerblue", (200, 200, 400, 200), border_radius = 30)

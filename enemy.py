@@ -62,10 +62,12 @@ class Enemy(pg.sprite.Sprite):
         #calc distance to target
         distance = self.movement.length()
         if distance >= self.speed * world.game_speed:
-            self.position += self.movement.normalize() * self.speed * world.game_speed
+            if self.movement.length() != 0:
+                self.position += self.movement.normalize() * self.speed * world.game_speed
         else:
             if distance != 0:
-                self.position += self.movement.normalize() * distance
+                if self.movement.length() != 0:
+                    self.position += self.movement.normalize() * distance
             self.target_waypoint += 1
 
     def rotate(self):
@@ -157,10 +159,12 @@ class Wandering_Enemy(Enemy):
         #calc distance to target
         distance = self.movement.length()
         if distance >= self.speed * world.game_speed:
-            self.position += self.movement.normalize() * self.speed * world.game_speed
+            if self.movement.length() != 0:
+                self.position += self.movement.normalize() * self.speed * world.game_speed
         else:
             if distance != 0:
-                self.position += self.movement.normalize() * distance
+                if self.movement.length() != 0:
+                    self.position += self.movement.normalize() * distance
             self.select_new_waypoint = True
             self.position_key = self.target_key
 

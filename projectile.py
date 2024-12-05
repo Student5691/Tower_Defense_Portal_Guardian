@@ -34,10 +34,12 @@ class Projectile(pg.sprite.Sprite):
         self.movement = self.target - self.position
         self.distance = self.movement.length()
         if self.distance >= self.speed * world.game_speed:
-            self.position += self.movement.normalize() * self.speed * world.game_speed
+            if self.movement.length() != 0:
+                self.position += self.movement.normalize() * self.speed * world.game_speed
         else:
             if self.distance != 0:
-                self.position += self.movement.normalize() * self.distance
+                if self.movement.length() != 0:
+                    self.position += self.movement.normalize() * self.distance
                 # self.target_enemy.hp -= self.damage
                 self.apply_hit()
                 self.kill()
